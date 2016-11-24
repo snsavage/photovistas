@@ -13,6 +13,6 @@ development:
   <<: *postgres
   database: vista_development
 
-# production:
+production:
   # url: <%= ENV["DATABASE_URL"] %>
 
