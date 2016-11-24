@@ -8,7 +8,10 @@ class Application < Sinatra::Base
   end
 
   get '/' do
-    @user = Unsplash::User.find("snsavage")
+    unsplash = Unsplash::User.find("snsavage")
+    User.create(username: unsplash.username)
+
+    @user = User.find_by(username: unsplash.username)
     erb :index
   end
 end

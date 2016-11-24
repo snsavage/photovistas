@@ -1,0 +1,18 @@
+postgres: &postgres
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: localhost
+  port: 5432
+
+test:
+  <<: *postgres
+  database: vista_test
+
+development:
+  <<: *postgres
+  database: vista_development
+
+# production:
+  # url: <%= ENV["DATABASE_URL"] %>
+
