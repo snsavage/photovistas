@@ -14,5 +14,4 @@ development:
   database: vista_development
 
 production:
-  # url: <%= ENV["DATABASE_URL"] %>
 
