@@ -14,3 +14,11 @@ group :development, :test do
   gem 'dotenv'
   gem 'pry'
 end
+
+group :test do
+  gem 'rspec'
+  gem 'capybara'
+  gem 'rack-test'
+  gem 'database_cleaner'
+end
+
