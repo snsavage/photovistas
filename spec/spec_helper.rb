@@ -13,7 +13,7 @@ ActiveRecord::Base.logger = nil
 RSpec.configure do |config|
 
   config.include Rack::Test::Methods
-  config.include Capybara
+  config.include Capybara::DSL
 
   DatabaseCleaner.strategy = :truncation
 
