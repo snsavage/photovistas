@@ -7,7 +7,12 @@
     <header>
       <h1><a href="/">Vistas</a></h1>
       <ul>
-        <li><a href="/signup">Sign up</a></li>
+        <% if logged_in? %>
+          <li><a href="/logout">Log out</a></li>
+        <% else %>
+          <li><a href="/login">Log in</a></li>
+          <li><a href="/signup">Sign up</a></li>
+        <% end %>
       </ul>
     </header>
     <main>

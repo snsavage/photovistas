@@ -47,3 +47,7 @@ end
 
 Capybara.app = app
 
+def root_path
+  "http://example.org/"
+end
+

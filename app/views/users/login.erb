@@ -1,0 +1,14 @@
+<h2>Login</h2>
+
+<% if flash[:login_errors] %>
+  <ul>
+    <li>Error: <%= flash[:login_erros] %></li>
+  </ul>
+<% end %>
+
+<form action="/login" method="post">
+  <label>Username: <input type="text" name="username"></label>
+  <label>Password: <input type="password" name="password"></label>
+  <input type="submit" value="Log in">
+</form>
+

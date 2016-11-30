@@ -1,72 +1,79 @@
 require 'spec_helper'
 
 describe User do
-  describe 'attributes' do
-    it 'creates a valid User' do
-      user = create(:user)
-      expect(user).to be_valid
+  it 'has secure password ' do
+    user = build(:user)
+    expect(user).to respond_to(:password_digest, :authenticate)
+  end
+
+  describe 'validations' do
+    describe '#username' do
+      it 'must be present' do
+        user = build(:user)
+        user.username = nil
+        expect(user).to be_invalid
+      end
+
+      it 'must be unique' do
+        user = create(:user)
+        dup_user = build(:user)
+
+        dup_user.username = user.username
+        expect(dup_user).to be_invalid
+      end
+
+      it 'must be at least 2 characters' do
+        user = build(:user)
+        user.username = "x"
+
+        expect(user).to be_invalid
+      end
+
+      it 'must be no longer than 25 characters' do
+        user = build(:user)
+        user.username = 'x' * 26
+
+        expect(user).to be_invalid
+      end
     end
 
-    it 'requires a username' do
-      user = build(:user)
-      user.username = nil
-      expect(user).to be_invalid
+    describe '#email' do
+      it 'must be present' do
+        user = build(:user)
+        user.email = nil
+        expect(user).to be_invalid
+      end
+
+      it 'must be unique' do
+        user = create(:user)
+        dup_user = build(:user)
+
+        dup_user.email = user.email
+        expect(dup_user).to be_invalid
+      end
     end
 
-    it 'requires a email' do
-      user = build(:user)
-      user.email = nil
-      expect(user).to be_invalid
-    end
+    describe '#password' do
+      it 'must be present' do
+        user = build(:user)
+        user.password = nil
+        expect(user).to be_invalid
+      end
 
-    it 'requires a password' do
-      user = build(:user)
-      user.password = nil
-      expect(user).to be_invalid
-    end
+      it 'must be at least 8 characters' do
+        user = build(:user)
+        user.password = "x" * 7
 
-    it 'username must be unique' do
-      user = create(:user)
-      dup_user = build(:user)
+        expect(user).to be_invalid
+      end
 
-      dup_user.username = user.username
-      expect(dup_user).to be_invalid
-    end
+      it 'must be no longer than 48 characters' do
+        user = build(:user)
+        user.password = "x" * 49
 
-    it 'email must be unique' do
-      user = create(:user)
-      dup_user = build(:user)
-
-      dup_user.email = user.email
-      expect(dup_user).to be_invalid
-    end
-
-    it 'username must be at least 2 characters long' do
-      user = build(:user)
-      user.username = "x"
-
-      expect(user).to be_invalid
-    end
-
-    it 'username cannot be longer than 25 characters' do
-      user = build(:user)
-      user.username = 'x' * 26
-
-      expect(user).to be_invalid
-    end
-
-    it 'password must be at least 8 characters long' do
-      user = build(:user)
-      user.password = "x" * 7
-
-      expect(user).to be_invalid
-    end
-
-    it 'password must be no longer than 48 characters' do
-      user = build(:user)
-      user.password = "x" * 49
-
-      expect(user).to be_invalid
+        expect(user).to be_invalid
+      end
     end
   end
 end
+
