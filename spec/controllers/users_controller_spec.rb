@@ -1,5 +1,15 @@
 require 'spec_helper'
 
+def login
+  user = create(:user)
+  post '/login', {username: user.username, password: user.password}
+  return user
+end
+
+def root_path
+  "http://example.org/"
+end
+
 describe UsersController do
   describe 'GET /signup' do
     context 'with a new user' do
@@ -37,7 +47,7 @@ describe UsersController do
         get '/login'
 
         expect(last_response.status).to eq(302)
-        expect(last_response.location).to include(root_path)
+        expect(last_response.location).to eq(root_path)
       end
     end
   end
@@ -66,6 +76,15 @@ describe UsersController do
         expect(last_response.body).to include('Error: ')
       end
     end
+
+    context 'when user logged in' do
+      it 'redirects to /' do
+        login
+        post '/login'
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to eq(root_path)
+      end
+    end
   end
 
   describe 'GET /logout' do
@@ -87,15 +106,15 @@ describe UsersController do
       it 'redirects to /' do
         get '/logout'
         expect(last_response.status).to eq(302)
-        expect(last_response.location).to include(root_path)
+        expect(last_response.location).to eq(root_path)
       end
     end
   end
 
   describe 'GET /users/:id' do
-    context 'with valid user' do
+    context 'with valid logged in user' do
       it 'returns user page' do
-        user = create(:user)
+        user = login
         get "/users/#{user.id}"
 
         expect(last_response.status).to eq(200)
@@ -107,7 +126,28 @@ describe UsersController do
         get "/users/100"
 
         expect(last_response.status).to eq(302)
-        expect(last_response.location).to include(root_path)
+        expect(last_response.location).to eq(root_path)
+      end
+    end
+
+    context 'when a user requests wrong account' do
+      it 'redirects to /' do
+        other_user_id = create(:user).id
+        user = login
+        get "/users/#{other_user_id}"
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to eq(root_path)
+      end
+    end
+
+    context 'when a guest requests a user account' do
+      it 'redirects to /' do
+        user = create(:user)
+        get "/users/#{user.id}"
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to eq(root_path)
       end
     end
   end
@@ -147,6 +187,16 @@ describe UsersController do
       it 'flashes error message' do
         post '/users'
         expect(last_response.body).to include('Error')
+      end
+    end
+
+    context 'when user logged in' do
+      it 'redirects to /' do
+        user = login
+        post '/users', attributes_for(:user)
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to eq(root_path)
       end
     end
   end

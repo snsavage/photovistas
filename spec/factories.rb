@@ -11,6 +11,10 @@ FactoryGirl.define do
     username
     email
     password "secret password"
+
+    factory :user_with_unsplash do
+      unsplash_username "snsavage"
+    end
   end
 end
 
