@@ -38,12 +38,18 @@ class SignUpsController < ApplicationController
     if logged_in? && session[:step] == "1" && params.has_key?("add_username")
       current_user.update(unsplash_username: params[:unsplash_username])
       current_user.save
-      session[:step] << "2"
+      session[:step] = "2"
       redirect to :"/signup/photos"
     else
+      session[:step].clear if session.has_key?(:step)
       redirect to "/users/#{current_user.id}" if params.has_key?("skip")
       redirect to "/"
     end
+  end
+
+  get '/signup/photos' do
+    @unsplash = Unsplash::User.find(current_user.unsplash_username)
+    erb :'/signups/photos'
   end
 end
 

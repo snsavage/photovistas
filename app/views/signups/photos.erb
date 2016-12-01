@@ -1,1 +1,8 @@
-<h2>Select Photos</h2>
+<h2>Step 3: Select Photos</h2>
+
+<h3>Likes</h3>
+<% @unsplash.likes.first(3).each do |photo| %>
+  <img src="<%= photo.urls["small"] %>">
+<% end %>
+<a href="<%= @unsplash.links["html"] %>/likes" target="_blank">View All</a> 
+

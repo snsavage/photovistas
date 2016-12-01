@@ -97,7 +97,7 @@ describe SignUpsController do
       end
     end
 
-    context 'without session key' do
+    context 'without step key' do
       it 'redirects to /users/:id' do
         user = login
         get '/signup/unsplash'
@@ -125,7 +125,7 @@ describe SignUpsController do
           expect(last_response.location).to include("/signup/photos")
         end
 
-        it 'add step to session[:step]' do
+        it 'adds step to session[:step]' do
           user = create(:user)
           session = {user_id: user.id, step: "1"}
           params = {unsplash_username: "snsavage", add_username: "Add username"}
@@ -134,7 +134,7 @@ describe SignUpsController do
 
           user = User.find(user.id)
 
-          expect(last_request.env['rack.session'][:step]).to eq("12")
+          expect(last_request.env['rack.session'][:step]).to eq("2")
         end
       end
 
@@ -151,6 +151,18 @@ describe SignUpsController do
           expect(user.unsplash_username).to be nil
           expect(last_response.status).to eq(302)
           expect(last_response.location).to include("/users/#{user.id}")
+        end
+
+        it 'removes step to session[:step]' do
+          user = create(:user)
+          session = {user_id: user.id, step: "1"}
+          params = {unsplash_username: "snsavage", skip: "Skip"}
+
+          post '/signup/unsplash', params, 'rack.session' => session
+
+          user = User.find(user.id)
+
+          expect(last_request.env['rack.session'][:step]).to eq("")
         end
       end
     end
@@ -169,21 +181,37 @@ describe SignUpsController do
     context 'after completing sign up step 2' do
       it 'renders /signup/photos' do
         user = create(:user_with_unsplash)
-        session = {user_id: user.id, step: "12"}
-        get '/signup/photos'
+        session = {user_id: user.id, step: "2"}
+        get '/signup/photos'#, {}, 'rack.session' => session
 
         expect(last_response.status).to eq(200)
-        expect(last_response.body).to include('Select photos')
+        expect(last_response.body).to include('Select Photos')
+      end
+
+      it 'handles Unsplash::Error on user lookup' do
+      end
+
+      it 'lists photo selections' do
+        user = create(:user_with_unsplash)
+        session = {user_id: user.id, step: "2"}
+
+        get '/signup/photos', {}, 'rack.session' => session
+
+        expect(last_response.status).to eq(200)
+        expect(last_response.body).to include('Amazing Landscapes')
+        expect(last_response.body).to include('Likes Photos')
       end
     end
 
     context 'when user not logged_in?' do
       it 'redirects to /' do
+        skip
       end
     end
 
-    context 'without session key' do
+    context 'without step key' do
       it 'redirects to /users/:id' do
+        skip
       end
     end
   end
