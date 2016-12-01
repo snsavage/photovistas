@@ -47,6 +47,13 @@ describe User do
 
         expect(user).to be_invalid
       end
+
+      it 'must not have any spaces' do
+        user = build(:user)
+        user.username = " abc "
+
+        expect(user).to be_invalid
+      end
     end
 
     describe '#email' do
