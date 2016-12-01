@@ -11,6 +11,7 @@ FactoryGirl.define do
     username
     email
     password "secret password"
+    password_confirmation "secret password"
 
     factory :user_with_unsplash do
       unsplash_username "snsavage"

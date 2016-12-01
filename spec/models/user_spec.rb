@@ -6,6 +6,11 @@ describe User do
     expect(user).to respond_to(:password_digest, :authenticate)
   end
 
+  it 'has an unsplash_username' do
+    user = build(:user)
+    expect(user).to respond_to(:unsplash_username)
+  end
+
   describe 'validations' do
     describe '#username' do
       it 'must be present' do
@@ -35,6 +40,13 @@ describe User do
 
         expect(user).to be_invalid
       end
+
+      it 'must only include letters and numbers' do
+        user = build(:user)
+        user.username = "$$$"
+
+        expect(user).to be_invalid
+      end
     end
 
     describe '#email' do
@@ -58,6 +70,14 @@ describe User do
         user = build(:user)
         user.password = nil
         expect(user).to be_invalid
+      end
+
+      it 'must be present only on create' do
+        id = create(:user).id
+        user = User.find(id)
+        user.username = "test"
+        user.save!
+        expect(user).to be_valid
       end
 
       it 'must be at least 8 characters' do

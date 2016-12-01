@@ -47,3 +47,13 @@ end
 
 Capybara.app = app
 
+def login
+  user = create(:user)
+  post '/login', {username: user.username, password: user.password}
+  return user
+end
+
+def root_path
+  "http://example.org/"
+end
+

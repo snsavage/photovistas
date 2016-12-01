@@ -8,10 +8,13 @@
   </ul>
 <% end %>
 
-<form action="/users" method="post">
+<form action="/signup" method="post">
   <label>Username: <input type="text" name="username"></label>
   <label>Email: <input type="text" name="email"></label>
   <label>Password: <input type="password" name="password"></label>
+  <label>Password Confirmation: 
+    <input type="password" name="password_confirmation">
+  </label>
   <input type="submit" value="Sign up">
 </form>
 

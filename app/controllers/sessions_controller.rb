@@ -1,9 +1,9 @@
 require_relative 'application_controller'
 
-class UsersController < ApplicationController
+class SessionsController < ApplicationController
   get '/login' do
     if !logged_in?
-      erb :'/users/login'
+      erb :'/sessions/login'
     else
       redirect to "/"
     end
@@ -28,18 +28,8 @@ class UsersController < ApplicationController
       redirect to "/users/#{user.id}"
     else
       flash[:login_errors] = "Please provide a valid username and password."
-      erb :"/users/login"
+      erb :"/sessions/login"
     end
   end
 
-  get '/users/:id' do
-    @user = User.find_by(id: params[:id])
-
-    if @user && logged_in? && @user.id == current_user.id
-      erb :'users/show'
-    else
-      redirect to "/"
-    end
-  end
 end
-
