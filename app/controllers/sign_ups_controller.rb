@@ -32,12 +32,13 @@ class SignUpsController < ApplicationController
     redirect to '/' if !logged_in?
 
     if params[:code]
-      begin
+      # begin
         unsplash_authorize(params[:code])
         unsplash_save_token
-      rescue
+      # rescue Exception => e
         flash[:notice] = "Unable to access Unsplash account.  Please try again."
-      end
+        # logger.info "*** Unsplash Error: #{e.message} ***"
+      # end
     end
 
     redirect to "/settings"

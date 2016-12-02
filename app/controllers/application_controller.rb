@@ -14,6 +14,10 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
   end
 
+  configure :production, :development do
+    enable :logging
+  end
+
   get '/' do
     erb :index
   end
