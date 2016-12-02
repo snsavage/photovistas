@@ -1,17 +1,7 @@
 module UnsplashHelpers
-  def unsplash_connection
-    Unsplash::Client.connection
-  end
-
   def unsplash_authorize(code)
     Unsplash::Client.connection.authorize!(code)
   end
-
-  # def unsplash_authorized?
-  #   # !!Unsplash::Client.connection.instance_variable_get(:@oauth_token)
-  #   binding.pry
-  #   !!Unsplash::User.current
-  # end
 
   def unsplash_auth_from_db
     if current_user.unsplash_token?
