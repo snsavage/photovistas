@@ -1,7 +1,12 @@
 <h2>Users show page.</h2>
 <p>Welcome, <%= @user.username %>!</p>
 
-<% if !session[:unsplash] %>
+<p>
+<% if @unsplash_user %>
+  Unsplash Username: <%= @unsplash_user[:username] %>
+  <a href="/unsplash/deauth">Remove Unsplash Account</a>
+<% else %>
   <a href="/unsplash/auth">Add an Unsplash Username</a>
 <% end %>
+</p>
 

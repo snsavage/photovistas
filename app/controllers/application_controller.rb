@@ -3,6 +3,7 @@ require 'sinatra/base'
 class ApplicationController < Sinatra::Base
 
   helpers SessionHelpers
+  helpers UnsplashHelpers
 
   enable :sessions
   set :session_secret, "secret" if !production?

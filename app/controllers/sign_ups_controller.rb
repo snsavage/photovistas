@@ -3,7 +3,6 @@ require_relative 'application_controller'
 class SignUpsController < ApplicationController
   get '/signup' do
     redirect to "/" if logged_in?
-
     erb :'/signups/new'
   end
 
@@ -22,26 +21,35 @@ class SignUpsController < ApplicationController
   end
 
   get '/unsplash/auth' do
+    redirect to '/' if !logged_in?
+
     requested_scopes = ["public"]
     auth_url = Unsplash::Client.connection.authorization_url(requested_scopes)
     redirect auth_url
   end
 
   get '/unsplash/callback' do
-    begin
-      if !session[:unsplash]
-        Unsplash::Client.connection.authorize!(params["code"])
-        session[:unsplash] = Unsplash::Client.connection.extract_token
-        erb "Session token set to #{session[:unsplash][:access_token]}"
-      else
-        Unsplash::Client.connection.create_and_assign_token(session[:unsplash])
-        erb "Current User is #{Unsplash::User.current[:username]}"
-      end
+    redirect to '/' if !logged_in?
 
-    rescue
-      flash[:notice] = "Unable to link your Unsplash account.  Please try again."
-      redirect to "/settings"
+    if params[:code]
+      begin
+        unsplash_authorize(params[:code])
+        unsplash_save_token
+      rescue
+        flash[:notice] = "Unable to access Unsplash account.  Please try again."
+      end
     end
+
+    redirect to "/settings"
+  end
+
+  get '/unsplash/deauth' do
+    redirect to '/' if !logged_in?
+
+    current_user.unsplash_token = nil
+    current_user.unsplash_username = nil
+    current_user.save
+    redirect to "/settings"
   end
 end
 
