@@ -7,4 +7,6 @@ class User < ActiveRecord::Base
                                  message: "only allows letters and numbers" }
   validates :username, length: { in: 2..25 }
   validates :password, length: { in: 8..48 }, allow_nil: true
+
+  serialize :unsplash_token
 end

@@ -6,9 +6,23 @@ describe User do
     expect(user).to respond_to(:password_digest, :authenticate)
   end
 
-  it 'has an unsplash_username' do
+  it 'has attribute unsplash_username' do
     user = build(:user)
     expect(user).to respond_to(:unsplash_username)
+  end
+
+  it 'has attribute unsplash_token' do
+    user = build(:user)
+    expect(user).to respond_to(:unsplash_token)
+  end
+
+  describe '#unsplash_token' do
+    it 'can be serialized' do
+      user = create(:user)
+      user.update(unsplash_token: unsplash_token)
+
+      expect(user.unsplash_token).to be_a(Hash)
+    end
   end
 
   describe 'validations' do
