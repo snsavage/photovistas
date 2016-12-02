@@ -72,3 +72,9 @@ describe SignUpsController do
   end
 end
 
+describe 'unsplash access token' do
+  it 'regenerates a token with access to current user' do
+    unsplash_token
+    expect(Unsplash::User.current[:username]).to eq("snsavage")
+  end
+end

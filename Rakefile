@@ -22,4 +22,29 @@ namespace :db do
   end
 end
 
+namespace :unsplash do
+  desc "Generate Unsplash access token json file"
+  task :token do
+    if ENV["RACK_ENV"] == "development"
+      begin
+        puts "Please generate a new authorization code..."
+        print "Authorization Code: "
+        code = STDIN.gets.chomp
+
+        Unsplash::Client.connection.authorize!(code)
+        token = Unsplash::Client.connection.extract_token
+        File.open("spec/token.json","w") do |f|
+          f.write(token.to_json)
+        end
+      rescue Exception => e
+        puts "Error: #{e.message}"
+      end
+      puts "Success: Unsplash token written to spec/token.json"
+    else
+      puts "Error: Must be in development environment."
+    end
+  end
+end
+
+
 

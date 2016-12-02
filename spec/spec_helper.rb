@@ -57,3 +57,12 @@ def root_path
   "http://example.org/"
 end
 
+def unsplash_token
+  file = File.read('spec/token.json')
+  data = JSON.parse(file)
+  Unsplash::Client.connection.create_and_assign_token(data)
+end
+
+
+
+
