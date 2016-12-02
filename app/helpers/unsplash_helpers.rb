@@ -7,9 +7,11 @@ module UnsplashHelpers
     Unsplash::Client.connection.authorize!(code)
   end
 
-  def unsplash_authorized?
-    !!Unsplash::Client.connection.instance_variable_get(:@oauth_token)
-  end
+  # def unsplash_authorized?
+  #   # !!Unsplash::Client.connection.instance_variable_get(:@oauth_token)
+  #   binding.pry
+  #   !!Unsplash::User.current
+  # end
 
   def unsplash_auth_from_db
     if current_user.unsplash_token?
@@ -18,7 +20,7 @@ module UnsplashHelpers
   end
 
   def unsplash_user
-    if unsplash_authorized? || unsplash_auth_from_db
+    if unsplash_auth_from_db
       @unsplash_user ||= Unsplash::User.current
     end
   end
@@ -29,7 +31,6 @@ module UnsplashHelpers
 
   def unsplash_save_token
     current_user.update(unsplash_token: unsplash_extract,
-                        unsplash_username: unsplash_user[:username])
-    current_user.save
+                        unsplash_username: Unsplash::User.current[:username])
   end
 end
