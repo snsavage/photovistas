@@ -79,3 +79,21 @@ describe 'unsplash access token' do
     expect(Unsplash::User.current[:username]).to eq("snsavage")
   end
 end
+
+describe 'GET /unsplash/deauth' do
+  it 'removes unsplash token and username from db' do
+    user = create(:user)
+    user.unsplash_token = "temp"
+    user.unsplash_username = "temp"
+    user.save!
+
+    get '/unsplash/deauth', {},
+      'rack.session' => {user_id: user.id}
+
+    user = User.find(user.id)
+
+    expect(user.unsplash_token).to be nil
+    expect(user.unsplash_username).to be nil
+  end
+end
+
