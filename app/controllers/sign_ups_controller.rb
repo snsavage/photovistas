@@ -2,54 +2,46 @@ require_relative 'application_controller'
 
 class SignUpsController < ApplicationController
   get '/signup' do
-    if !logged_in?
-      erb :'/signups/new'
-    else
-      redirect to "/"
-    end
+    redirect to "/" if logged_in?
+
+    erb :'/signups/new'
   end
 
   post '/signup' do
     redirect to "/" if logged_in?
 
-    user = User.create(params)
-
+    user = User.create(params[:credentials])
     if user.valid?
       session[:user_id] = user.id
-      session[:step] = "1"
-      redirect to "/signup/unsplash"
+      redirect to "/unsplash/auth" if params[:unsplash]
+      redirect to "/settings"
     else
       flash[:form_errors] = user.errors.full_messages
       erb :'/signups/new'
     end
   end
 
-  get '/signup/unsplash' do
-    redirect to "/" if !logged_in?
-
-    if session[:step] == "1"
-      erb :"/signups/unsplash"
-    else
-      redirect to "/users/#{current_user.id}"
-    end
+  get '/unsplash/auth' do
+    requested_scopes = ["public"]
+    auth_url = Unsplash::Client.connection.authorization_url(requested_scopes)
+    redirect auth_url
   end
 
-  post '/signup/unsplash' do
-    if logged_in? && session[:step] == "1" && params.has_key?("add_username")
-      current_user.update(unsplash_username: params[:unsplash_username])
-      current_user.save
-      session[:step] = "2"
-      redirect to :"/signup/photos"
-    else
-      session[:step].clear if session.has_key?(:step)
-      redirect to "/users/#{current_user.id}" if params.has_key?("skip")
-      redirect to "/"
-    end
-  end
+  get '/unsplash/callback' do
+    begin
+      if !session[:unsplash]
+        Unsplash::Client.connection.authorize!(params["code"])
+        session[:unsplash] = Unsplash::Client.connection.extract_token
+        erb "Session token set to #{session[:unsplash][:access_token]}"
+      else
+        Unsplash::Client.connection.create_and_assign_token(session[:unsplash])
+        erb "Current User is #{Unsplash::User.current[:username]}"
+      end
 
-  get '/signup/photos' do
-    @unsplash = Unsplash::User.find(current_user.unsplash_username)
-    erb :'/signups/photos'
+    rescue
+      flash[:notice] = "Unable to link your Unsplash account.  Please try again."
+      redirect to "/settings"
+    end
   end
 end
 

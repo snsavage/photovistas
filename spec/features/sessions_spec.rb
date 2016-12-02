@@ -11,7 +11,7 @@ feature 'user log in and log out', type: :feature do
     fill_in('Password', with: user.password)
     click_button ('Log in') 
 
-    expect(page.current_path).to include("/users/#{user.id}")
+    expect(page.current_path).to include("/settings")
     expect(page.body).not_to include("Sign up")
     expect(page.body).not_to include("Log in")
     expect(page.body).to include("Log out")

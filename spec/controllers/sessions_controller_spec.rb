@@ -29,7 +29,7 @@ describe SessionsController do
         post '/login', {username: user.username, password: user.password}
 
         expect(last_response.status).to eq(302)
-        expect(last_response.location).to include("/users/#{user.id}")
+        expect(last_response.location).to include("/settings")
       end
     end
 
