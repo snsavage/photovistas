@@ -1,3 +1,12 @@
+module FactoryGirl
+  class DefinitionProxy
+    def unsplash_data
+      file = File.read('spec/token.json')
+      data = JSON.parse(file)
+    end
+  end
+end
+
 FactoryGirl.define do
   sequence :email do |n|
     "person#{n}@example.com"
@@ -15,6 +24,7 @@ FactoryGirl.define do
 
     factory :user_with_unsplash do
       unsplash_username "snsavage"
+      unsplash_token unsplash_data
     end
   end
 end

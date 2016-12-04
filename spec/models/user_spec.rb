@@ -19,7 +19,7 @@ describe User do
   describe '#unsplash_token' do
     it 'can be serialized' do
       user = create(:user)
-      user.update(unsplash_token: unsplash_token)
+      user.update(unsplash_token: unsplash_token_setup)
 
       expect(user.unsplash_token).to be_a(Hash)
     end

@@ -1,4 +1,4 @@
-<h2>Users show page.</h2>
+<h2>Account Settings</h2>
 <p>Welcome, <%= @user.username %>!</p>
 
 <p>
@@ -9,4 +9,8 @@
   <a href="/unsplash/auth">Add an Unsplash Username</a>
 <% end %>
 </p>
+
+<% @photos.each do |photo| %>
+  <img src="<%= photo%>">
+<% end %>
 
