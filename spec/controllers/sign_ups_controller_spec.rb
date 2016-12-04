@@ -80,14 +80,14 @@ describe 'unsplash access token' do
   end
 end
 
-describe 'GET /unsplash/deauth' do
+describe 'GET /unsplash/unlink' do
   it 'removes unsplash token and username from db' do
     user = create(:user)
     user.unsplash_token = "temp"
     user.unsplash_username = "temp"
     user.save!
 
-    get '/unsplash/deauth', {},
+    get '/unsplash/unlink', {},
       'rack.session' => {user_id: user.id}
 
     user = User.find(user.id)

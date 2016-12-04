@@ -44,7 +44,7 @@ class SignUpsController < ApplicationController
     redirect to "/settings"
   end
 
-  get '/unsplash/deauth' do
+  get '/unsplash/unlink' do
     redirect to '/' if !logged_in?
 
     current_user.update(unsplash_token: nil,
