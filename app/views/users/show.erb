@@ -10,7 +10,9 @@
 <% end %>
 </p>
 
-<% @photos.each do |photo| %>
-  <img src="<%= photo%>">
+<% if @photos != [] %>
+  <% @photos.each do |photo| %>
+    <img src="<%= photo%>">
+  <% end %>
 <% end %>
 

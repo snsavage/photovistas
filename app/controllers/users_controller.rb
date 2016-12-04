@@ -5,19 +5,21 @@ class UsersController < ApplicationController
     if logged_in?
       @user = current_user
       @unsplash_user = unsplash_user
+      @photos = []
 
+      if unsplash_user
+        photos = []
+        page = 1
 
-      photos = []
-      page = 1
-
-      while [] != likes = unsplash_user.likes(page, 30)
-        photos << likes.map do |photo|
-          photo.urls.thumb
+        while [] != likes = unsplash_user.likes(page, 30)
+          photos << likes.map do |photo|
+            photo.urls.thumb
+          end
+          page += 1
         end
-        page += 1
-      end
 
-      @photos = photos.flatten
+        @photos = photos.flatten
+      end
 
       erb :'users/show'
     else
