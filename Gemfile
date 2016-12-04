@@ -25,5 +25,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl'
   gem 'fuubar'
+  gem 'webmock'
+  gem 'vcr'
 end
 

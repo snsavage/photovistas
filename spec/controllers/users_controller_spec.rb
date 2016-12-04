@@ -92,7 +92,7 @@ describe UsersController do
     end
 
     context 'when a user has an unsplash account' do
-      it 'displays unsplash username' do
+      it 'displays unsplash username', :vcr do
         user = create(:user_with_unsplash)
 
         get "/settings", {}, 'rack.session' => {user_id: user.id}

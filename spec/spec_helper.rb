@@ -3,6 +3,7 @@ ENV['RACK_ENV'] = "test"
 require_relative "../config/environment"
 require 'rack/test'
 require 'capybara/rspec'
+require 'vcr'
 
 if ActiveRecord::Migrator.needs_migration?
   raise 'Migrations are pending. Run `rake db:migrate SINATRA_ENV=test` to resolve the issue.'
@@ -39,6 +40,12 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
+end
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+  c.configure_rspec_metadata!
 end
 
 def app
