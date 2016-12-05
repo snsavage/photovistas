@@ -10,9 +10,7 @@ module UnsplashHelpers
   end
 
   def unsplash_user
-    if unsplash_auth_from_db
-      @unsplash_user ||= Unsplash::User.current
-    end
+    @unsplash_user ||= Unsplash::User.current if unsplash_auth_from_db
   end
 
   def unsplash_extract

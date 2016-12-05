@@ -1,18 +1,58 @@
-<h2>Account Settings</h2>
-<p>Welcome, <%= @user.username %>!</p>
+<h2>Settings</h2>
+<p>Welcome, <%= current_user.username %>!</p>
 
-<p>
-<% if @unsplash_user %>
-  Unsplash Username: <%= @unsplash_user[:username] %>
-  <a href="/unsplash/unlink">Remove Unsplash Account</a>
-<% else %>
-  <a href="/unsplash/auth">Add an Unsplash Username</a>
-<% end %>
-</p>
+<hr>
 
-<% if @photos != [] %>
-  <% @photos.each do |photo| %>
-    <img src="<%= photo%>">
+<% if unsplash_user %>
+  <h3>Your Liked Photos (Total: <%= @count_of_likes %>)</h3>
+  <% @likes.each do |photo| %>
+    <a href="https://unsplash.com/?photo=<%= photo[:id]%>" target="_blank">
+      <img src="<%= photo[:thumb] %>">
+    </a>
+  <% end %>
+  <a href="https://unsplash.com/@<%= @unsplash_username %>/likes" target="_blank">
+    View All
+  </a>
+
+  <h3>Your Photo Collections</h3>
+  <% @collections.each do |collection| %>
+    <h4><%= collection[:title] %> (Total: <%= collection[:count] %>)</h4>
+    <% collection[:photos].each do |photo| %>
+      <a href="https://unsplash.com/?photo=<%= photo[:id]%>" target="_blank">
+        <img src="<%= photo[:thumb] %>">
+      </a>
+    <% end %>
+
+    <a href="http://unsplash.com/collections/<%= collection[:id] %>" target="_blank">
+      View Collection
+    </a>
   <% end %>
 <% end %>
+
+<hr>
+
+<div>
+  <h3>Photo Vistas Account Settings</h3>
+  <ul>
+    <li>Username: <%= current_user.username %></li>
+    <li>Email: <%= current_user.email %></li>
+  </ul>
+  <div>
+    <a href="/settings/edit">Edit Account Settings</a>
+  </div>
+</div>
+
+<div>
+  <% if unsplash_user %>
+    <div>
+      <p>Unsplash Username: <%= unsplash_user[:username] %><p>
+      <a href="/unsplash/unlink">Unlink Unsplash Account</a>
+    </div>
+    <p>(Unlinking will remove Photo Vistas' access to your Unsplash account.  Your photos will remain in their queue, but you won't be able to add additional photos from your account.  Please note, this will not deauthorize Photo Vistas from your Unsplash account.)
+  <% else %>
+    <a href="/unsplash/auth">Link Unsplash Account</a>
+    <p>(Linking an Unsplash account will allow you to add liked photos, photo
+    collections and unloaded photos to your Photo Vistas queue.)</p>
+  <% end %>
+</div>
 

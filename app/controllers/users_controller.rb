@@ -22,23 +22,41 @@ class UsersController < ApplicationController
 
   get '/settings' do
     if logged_in?
-      @user = current_user
-      @unsplash_user = unsplash_user
-      @photos = []
-
       if unsplash_user
-        photos = []
-        page = 1
-
-        while [] != likes = unsplash_user.likes(page, 30)
-          photos << likes.map do |photo|
-            photo.urls.thumb
-          end
-          page += 1
+        all_likes = unsplash_user.likes
+        @likes = all_likes.first(5).map do |photo|
+          {id: photo.id, thumb: photo.urls.thumb}
         end
+        @unsplash_username = unsplash_user.username
 
-        @photos = photos.flatten
+        @count_of_likes = all_likes.count
+
+        @collections = Unsplash::User.current.collections.map do |collection|
+          {
+            title: collection.title,
+            id: collection.id,
+            count: collection.total_photos,
+            photos: collection.photos.first(5).map do |photo|
+              {id: photo.id, thumb: photo.urls.thumb}
+            end
+          }
+        end
       end
+      # @photos = []
+
+      # if unsplash_user
+      #   photos = []
+      #   page = 1
+
+      #   while [] != likes = unsplash_user.likes(page, 30)
+      #     photos << likes.map do |photo|
+      #       photo.urls.thumb
+      #     end
+      #     page += 1
+      #   end
+
+      #   @photos = photos.flatten
+      # end
 
       erb :'users/show'
     else

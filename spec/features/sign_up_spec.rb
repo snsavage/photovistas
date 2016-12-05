@@ -41,7 +41,7 @@ feature 'user sign up', type: :feature do
       click_button ('Sign Up')
 
       expect(page.current_path).to include("/settings")
-      expect(page.body).to include("Add an Unsplash Username")
+      expect(page.body).to include("Link Unsplash Account")
     end
   end
 
