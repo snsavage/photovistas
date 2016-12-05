@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/snsavage/unsplash_rb.git
-  revision: 73cb9a06c74c7155ba60883f7702ee9122931a65
+  revision: e64695e4906fe3cc574655c4a98afbd3bc53f353
+  branch: savage
   specs:
     unsplash (1.4.0)
       httparty (~> 0.13.5)
