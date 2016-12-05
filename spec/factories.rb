@@ -23,7 +23,6 @@ FactoryGirl.define do
     password_confirmation "secret password"
 
     factory :user_with_unsplash do
-      unsplash_username "snsavage"
       unsplash_token unsplash_data
     end
   end
