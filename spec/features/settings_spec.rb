@@ -63,6 +63,22 @@ feature 'user settings', :feature do
       expect(page.body).to include("Unlink Unsplash Account")
       expect(page.body).to include("/unsplash/unlink")
     end
+
+    scenario 'user can add likes to queue', vcr: vcr_options do
+      skip
+      user = create(:user_with_unsplash)
+      visit '/login'
+      fill_in('username', with: user.username)
+      fill_in('password', with: user.password)
+      click_button ('Log in')
+
+      beg_count = user.queue.count
+      clink_link("Add Photos to Queue")
+
+      photos_added = user.queue.count - beg_count
+
+      expect(page.body).to include("#{photos_added} have been added to your queue!")
+    end
   end
 
   context 'without an unsplash username' do
@@ -90,6 +106,10 @@ feature 'user settings', :feature do
 
       expect(page.body).to include("Link Unsplash Account")
       expect(page.body).to include("/unsplash/auth")
+    end
+
+    scenario 'user can change user settings' do
+      skip
     end
 
     scenario 'user has access to the default photo queue' do
