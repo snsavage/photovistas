@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe UnsplashController do
   describe 'unsplash access token' do
-    it 'regenerates a token with access to current user', :vcr do
-      # skip "Only use when testing extract process"
+    it 'regenerates a token with access to current user' do
+      skip "Only use when testing extract process"
       unsplash_token_setup
-      expect(Unsplash::User.current[:username]).to eq("snsavage")
+
+      expect{Unsplash::User.current[:username]}.not_to raise_error
     end
   end
 
