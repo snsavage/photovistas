@@ -119,9 +119,9 @@ feature 'user settings', :feature do
       fill_in('username', with: "New Username")
       fill_in('email', with: "newemail@example.org")
 
-      fill_in('Current Password', with: user.passsword)
+      fill_in('Current Password', with: user.password)
       fill_in('New Password', with: "new password")
-      fill_in('Confirm Password', with: "new password")
+      fill_in('Password Confirmation', with: "new password")
 
       click_button("Save Changes")
 

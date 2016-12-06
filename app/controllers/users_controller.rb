@@ -63,5 +63,40 @@ class UsersController < ApplicationController
       redirect to"/"
     end
   end
+
+  get '/settings/:username/edit' do |username|
+    if logged_in? && current_user.username == username
+      @user_data = {username: current_user.username, email: current_user.email}
+      erb :'/users/edit'
+    else
+      redirect to "/"
+    end
+  end
+
+  patch '/settings/:username' do |username|
+    redirect to "/" if !logged_in? || current_user.username != username
+
+    @user_data = {
+      username: params[:credentials][:username],
+      email: params[:credentials][:email]
+    }
+
+    if params[:credentials][:password] && 
+      !current_user.authenticate(params[:current])
+
+      flash[:form_errors] =
+        ["Please provide your current password to change passwords."]
+
+      halt erb(:'/users/edit')
+    end
+
+    current_user.update(params[:credentials])
+    if current_user.valid?
+      redirect to "/settings/#{current_user.username}"
+    else
+      flash[:form_errors] = current_user.errors.full_messages
+      erb :'/users/edit'
+    end
+  end
 end
 

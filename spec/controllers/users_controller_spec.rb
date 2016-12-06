@@ -104,5 +104,167 @@ describe UsersController do
       end
     end
   end
+
+  describe 'GET /settings/:username/edit' do
+    context 'when logged in' do
+      it 'renders the edit user form' do
+        user = create(:user)
+        get "/settings/#{user.username}/edit", {}, 'rack.session' => {user_id: user.id}
+
+        expect(last_response.status).to eq(200)
+        expect(last_response.body).to include("Edit Account Settings")
+      end
+
+      it 'pre fills form fields' do
+        user = create(:user)
+        get "/settings/#{user.username}/edit", {}, 'rack.session' => {user_id: user.id}
+
+        expect(last_response.body).to include(user.username)
+        expect(last_response.body).to include(user.email)
+      end
+    end
+
+    context 'with an invalid user' do
+      it 'redirects to /' do
+        user = create(:user)
+        invalid = create(:user)
+        get "/settings/#{user.username}/edit", {}, 'rack.session' => {user_id: invalid.id}
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to include(root_path)
+      end
+    end
+
+    context 'when not logged in' do
+      it 'redirects to /' do
+        get "/settings/invalid/edit"
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to include(root_path)
+      end
+    end
+  end
+
+  describe 'PATCH /settings/:username' do
+    context 'with valid changes' do
+      it 'redirects to /settings/:username' do
+        user = create(:user)
+        params = {
+          credentials: {
+            username: "username",
+            email: "newemail@example.org"
+          }
+        }
+
+        patch("/settings/#{user.username}", params,
+              'rack.session' => {user_id: user.id})
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to include(
+          "/settings/#{params[:credentials][:username]}"
+        )
+      end
+
+      it 'updates account settings' do
+        user = create(:user)
+        params = {
+          credentials: {
+            username: "username",
+            email: "newemail@example.org"
+          }
+        }
+
+        patch("/settings/#{user.username}", params,
+              'rack.session' => {user_id: user.id})
+
+        user = User.find(user.id)
+
+        expect(user.username).to eq(params[:credentials][:username])
+        expect(user.email).to eq(params[:credentials][:email])
+      end
+
+      it 'changes the password' do
+        user = create(:user)
+        params = {
+          current: user.password,
+          credentials: {
+            password: "New Password",
+            password_confirmation: "New Password"
+          }
+        }
+
+        digest = user.password_digest
+
+        patch("/settings/#{user.username}", params,
+             'rack.session' => {user_id: user.id})
+
+        user = User.find(user.id)
+        expect(digest).not_to eq(user.password_digest)
+      end
+    end
+
+    context 'when user does not provide current password' do
+      it 'flashes error message' do
+        user = create(:user)
+        params = {
+          credentials: {
+            password: "New Password",
+            password_confirmation: "New Password"
+          }
+        }
+
+        patch("/settings/#{user.username}", params,
+              'rack.session' => {user_id: user.id})
+
+        expect(last_response.body).to include("Error: Please provide your current password to change passwords.")
+      end
+    end
+
+    context 'with invalid changes' do
+      it 'flashes error message' do
+        user = create(:user)
+        params = {credentials: {username: "$$$"}}
+
+        patch("/settings/#{user.username}", params,
+              'rack.session' => {user_id: user.id})
+
+        expect(last_response.body).to include("Error: ")
+        expect(last_response.body).not_to include("provide your current password")
+      end
+
+      it 'shows the user previous entries' do
+        user = create(:user)
+        params = {credentials: {username: "$$$"}}
+
+        patch("/settings/#{user.username}", params,
+              'rack.session' => {user_id: user.id})
+
+        expect(last_response.body).to include(params[:credentials][:username])
+      end
+    end
+
+    context 'when a user is logged out' do
+      it 'redirects to /' do
+        user = create(:user)
+        patch "/settings/#{user.username}"
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to eq(root_path)
+      end
+    end
+
+    context 'with an invalid user' do
+      it 'redirects to/' do
+        user = create(:user)
+        invalid = create(:user)
+
+        patch("/settings/#{user.username}", {},
+              'rack.session' => {user_id: invalid.id})
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to eq(root_path)
+      end
+    end
+  end
 end
 
