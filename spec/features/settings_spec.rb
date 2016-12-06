@@ -109,7 +109,24 @@ feature 'user settings', :feature do
     end
 
     scenario 'user can change user settings' do
-      skip
+      user = create(:user)
+      visit '/login'
+      fill_in('username', with: user.username)
+      fill_in('password', with: user.password)
+      click_button ('Log in')
+
+      click_link('Edit Account Settings')
+      fill_in('username', with: "New Username")
+      fill_in('email', with: "newemail@example.org")
+
+      fill_in('Current Password', with: user.passsword)
+      fill_in('New Password', with: "new password")
+      fill_in('Confirm Password', with: "new password")
+
+      click_button("Save Changes")
+
+      expect(page.body).to include("New Username")
+      expect(page.body).to include("newemail@example.org")
     end
 
     scenario 'user has access to the default photo queue' do
