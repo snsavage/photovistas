@@ -13,15 +13,15 @@ class UsersController < ApplicationController
     if user.valid?
       session[:user_id] = user.id
       redirect to "/unsplash/auth" if params[:unsplash]
-      redirect to "/settings"
+      redirect to "/settings/#{user.username}"
     else
       flash[:form_errors] = user.errors.full_messages
       erb :'/signups/new'
     end
   end
 
-  get '/settings' do
-    if logged_in?
+  get '/settings/?:username?' do |username|
+    if logged_in? && username == current_user.username
       if unsplash_user
         all_likes = unsplash_user.likes
         @likes = all_likes.first(5).map do |photo|

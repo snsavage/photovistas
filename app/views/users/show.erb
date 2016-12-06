@@ -38,7 +38,9 @@
     <li>Email: <%= current_user.email %></li>
   </ul>
   <div>
-    <a href="/settings/edit">Edit Account Settings</a>
+    <a href="/settings/<%= current_user.username %>/edit">
+      Edit Account Settings
+    </a>
   </div>
 </div>
 

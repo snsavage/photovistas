@@ -10,6 +10,16 @@ describe UnsplashController do
     end
   end
 
+  describe 'GET /unsplash/callback' do
+    it 'redirects to /settings/:username' do
+      user = create(:user)
+      get "/unsplash/callback", {}, 'rack.session' => {user_id: user.id}
+
+      expect(last_response.status).to eq(302)
+      expect(last_response.location).to include("/settings/#{user.username}")
+    end
+  end
+
   describe 'GET /unsplash/unlink' do
     it 'removes unsplash token and username from db' do
       user = create(:user)
@@ -19,10 +29,11 @@ describe UnsplashController do
 
       get '/unsplash/unlink', {}, 'rack.session' => {user_id: user.id}
 
-      unlinked_user = User.find(user.id)
+      unlinked = User.find(user.id)
 
-      expect(unlinked_user.unsplash_token).to be nil
-      expect(unlinked_user.unsplash_username).to be nil
+      expect(unlinked.unsplash_token).to be nil
+      expect(unlinked.unsplash_username).to be nil
+      expect(last_response.location).to include("/settings/#{unlinked.username}")
     end
   end
 end

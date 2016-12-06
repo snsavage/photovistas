@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
 
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect to "/settings"
+      redirect to "/settings/#{user.username}"
     else
       flash[:login_errors] = "Please provide a valid username and password."
       erb :"/sessions/login"

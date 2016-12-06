@@ -24,12 +24,12 @@ describe SessionsController do
 
   describe 'POST /login' do
     context 'with valid credentials' do
-      it 'renders /users/:id' do
+      it 'renders /settings/:username' do
         user = create(:user)
         post '/login', {username: user.username, password: user.password}
 
         expect(last_response.status).to eq(302)
-        expect(last_response.location).to include("/settings")
+        expect(last_response.location).to include("/settings/#{user.username}")
       end
     end
 

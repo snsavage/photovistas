@@ -22,7 +22,7 @@ class UnsplashController < ApplicationController
       end
     end
 
-    redirect to "/settings"
+    redirect to "/settings/#{current_user.username}"
   end
 
   get '/unsplash/unlink' do
@@ -31,6 +31,6 @@ class UnsplashController < ApplicationController
     current_user.update(unsplash_token: nil,
                         unsplash_username: nil)
 
-    redirect to "/settings"
+    redirect to "/settings/#{current_user.username}"
   end
 end

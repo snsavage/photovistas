@@ -40,7 +40,7 @@ feature 'user sign up', type: :feature do
       fill_in('confirm', with: user[:password])
       click_button ('Sign Up')
 
-      expect(page.current_path).to include("/settings")
+      expect(page.current_path).to include("/settings/#{user[:username]}")
       expect(page.body).to include("Link Unsplash Account")
     end
   end

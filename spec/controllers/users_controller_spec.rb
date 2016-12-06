@@ -71,11 +71,11 @@ describe UsersController do
     end
   end
 
-  describe 'GET /settings' do
+  describe 'GET /settings/:username' do
     context 'with valid logged in user' do
       it 'renders user page' do
         user = create(:user)
-        get "/settings", {}, 'rack.session' => {user_id: user.id}
+        get "/settings/#{user.username}", {}, 'rack.session' => {user_id: user.id}
 
         expect(last_response.status).to eq(200)
         expect(last_response.body).to include("Account Settings")
@@ -84,7 +84,7 @@ describe UsersController do
 
     context 'with invalid user' do
       it 'redirects to /' do
-        get "/settings"
+        get "/settings/invalid"
 
         expect(last_response.status).to eq(302)
         expect(last_response.location).to eq(root_path)
@@ -95,7 +95,7 @@ describe UsersController do
       it 'displays unsplash username', :vcr do
         user = create(:user_with_unsplash)
 
-        get "/settings", {}, 'rack.session' => {user_id: user.id}
+        get "/settings/#{user.username}", {}, 'rack.session' => {user_id: user.id}
 
         expect(last_response.body).to include("Unsplash Username")
       end
