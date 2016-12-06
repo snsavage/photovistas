@@ -65,7 +65,6 @@ feature 'user settings', :feature do
     end
 
     scenario 'user can add likes to queue', vcr: vcr_options do
-      skip
       user = create(:user_with_unsplash)
       visit '/login'
       fill_in('username', with: user.username)
