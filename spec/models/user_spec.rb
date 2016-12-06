@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe User do
+  it 'has many photos' do
+    user = create(:user)
+    user.photos << create(:photo) << create(:photo)
+
+    expect(user.photos.count).to eq(2)
+  end
+
   it 'has secure password ' do
     user = build(:user)
     expect(user).to respond_to(:password_digest, :authenticate)
