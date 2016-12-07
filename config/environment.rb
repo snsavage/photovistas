@@ -6,6 +6,7 @@ Bundler.require(:default, ENV['RACK_ENV'])
 Dotenv.load if ENV['RACK_ENV'] != "production"
 
 require_rel "../app/"
+require_rel "../lib/"
 
 Unsplash.configure do |config|
   config.application_id = ENV['UNSPLASH_ID']
