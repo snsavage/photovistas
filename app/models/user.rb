@@ -20,15 +20,4 @@ class User < ActiveRecord::Base
       end
     end
   end
-
-  # photos.create(photos_to_add)
-
-  # dup_photos = photos.collect do |photo|
-  #   photo.unsplash_id if photo.invalid?
-  # end
-
-  # if !dup_photos.empty?
-  #   photos_to_associate = Photo.where(unsplash_id: dup_photos)
-  #   photos << photos_to_associate
-  # end
 end
