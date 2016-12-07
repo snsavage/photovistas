@@ -64,19 +64,28 @@ feature 'user settings', :feature do
       expect(page.body).to include("/unsplash/unlink")
     end
 
-    scenario 'user can add likes to queue', vcr: vcr_options do
+    scenario 'user can add likes to queue', :vcr do
       user = create(:user_with_unsplash)
       visit '/login'
       fill_in('username', with: user.username)
       fill_in('password', with: user.password)
       click_button ('Log in')
 
-      beg_count = user.queue.count
-      clink_link("Add Photos to Queue")
+      click_button("Add Liked Photos to Queue")
 
-      photos_added = user.queue.count - beg_count
+      expect(page.body).to include("Your Queue has been updated.")
+    end
 
-      expect(page.body).to include("#{photos_added} have been added to your queue!")
+    scenario 'user can add a collection to queue', vcr: {record: :new_episodes} do
+      user = create(:user_with_unsplash)
+      visit '/login'
+      fill_in('username', with: user.username)
+      fill_in('password', with: user.password)
+      click_button ('Log in')
+
+      click_button("Add Collection Wildlife to Queue")
+
+      expect(page.body).to include("Your Queue has been updated.")
     end
   end
 

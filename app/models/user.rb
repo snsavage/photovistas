@@ -12,4 +12,23 @@ class User < ActiveRecord::Base
   validates :password, length: { in: 8..48 }, allow_nil: true
 
   serialize :unsplash_token
+
+  def add_photos_to_queue(photos_to_add)
+    photos_to_add.map do |photo|
+      photos.find_or_create_by(unsplash_id: photo[:unsplash_id]) do |x|
+        x.thumb_url = photo[:thumb_url]
+      end
+    end
+  end
+
+  # photos.create(photos_to_add)
+
+  # dup_photos = photos.collect do |photo|
+  #   photo.unsplash_id if photo.invalid?
+  # end
+
+  # if !dup_photos.empty?
+  #   photos_to_associate = Photo.where(unsplash_id: dup_photos)
+  #   photos << photos_to_associate
+  # end
 end

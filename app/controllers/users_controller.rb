@@ -29,7 +29,7 @@ class UsersController < ApplicationController
         end
         @unsplash_username = unsplash_user.username
 
-        @count_of_likes = all_likes.count
+        @count_of_likes = unsplash_user.total_likes
 
         @collections = Unsplash::User.current.collections.map do |collection|
           {
@@ -42,21 +42,6 @@ class UsersController < ApplicationController
           }
         end
       end
-      # @photos = []
-
-      # if unsplash_user
-      #   photos = []
-      #   page = 1
-
-      #   while [] != likes = unsplash_user.likes(page, 30)
-      #     photos << likes.map do |photo|
-      #       photo.urls.thumb
-      #     end
-      #     page += 1
-      #   end
-
-      #   @photos = photos.flatten
-      # end
 
       erb :'users/show'
     else

@@ -1,7 +1,10 @@
 <h2>Settings</h2>
+
 <p>Welcome, <%= current_user.username %>!</p>
 
 <hr>
+
+<h2>Your Queue has <%= current_user.photos.count %> Photos</h2>
 
 <% if unsplash_user %>
   <h3>Your Liked Photos (Total: <%= @count_of_likes %>)</h3>
@@ -13,6 +16,10 @@
   <a href="https://unsplash.com/@<%= @unsplash_username %>/likes" target="_blank">
     View All
   </a>
+  <form action="/queue/<%= current_user.username %>" method="post">
+    <input id="hidden" type="hidden" name="collections" value="liked">
+    <input type="submit" value="Add Liked Photos to Queue">
+  </form>
 
   <h3>Your Photo Collections</h3>
   <% @collections.each do |collection| %>
@@ -26,6 +33,15 @@
     <a href="http://unsplash.com/collections/<%= collection[:id] %>" target="_blank">
       View Collection
     </a>
+
+    <form action="/queue/<%= current_user.username %>" method="post">
+      <input id="hidden" 
+             type="hidden" 
+             name="collections" 
+             value="<%= collection[:id] %>">
+      <input type="submit" 
+             value="Add Collection <%= collection[:title] %> to Queue">
+    </form>
   <% end %>
 <% end %>
 
