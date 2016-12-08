@@ -1,6 +1,15 @@
 require 'spec_helper'
 
 describe UsersController do
+  describe 'GET /bookmark/:username' do
+    it 'renders /bookmark/:username' do
+      user = create(:user)
+      user.photos.create(attributes_for(:photo))
+
+      get "/bookmark/#{user.username}", {}, 'rack.session' => {user_id: user.id}
+    end
+  end
+
   describe 'GET /signup' do
     context 'with a new user' do
       it 'renders sign up page' do

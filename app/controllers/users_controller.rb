@@ -6,6 +6,11 @@ class UsersController < ApplicationController
     erb :'/signups/new'
   end
 
+  get '/bookmark/:username' do
+    @url = current_user.photo_queues.last.photo.full_url
+    erb :'/users/bookmark'
+  end
+
   post '/signup' do
     redirect to "/" if logged_in?
 

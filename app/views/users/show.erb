@@ -6,6 +6,8 @@
 
 <h2>Your Queue has <%= current_user.photos.count %> Photos</h2>
 
+<a href="/bookmark/<%= current_user.username %>">Bookmark</a>
+
 <% if unsplash_user %>
   <h3>Your Liked Photos (Total: <%= @count_of_likes %>)</h3>
   <% @likes.each do |photo| %>

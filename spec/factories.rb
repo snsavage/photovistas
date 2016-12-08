@@ -34,6 +34,7 @@ FactoryGirl.define do
   factory :photo do
     unsplash_id
     thumb_url "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=853362bc9b185da3d049a4754c39163d"
+    full_url "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=853362bc9b185da3d049a4754c39163d"
   end
 end
 
