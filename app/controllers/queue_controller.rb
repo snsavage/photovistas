@@ -18,6 +18,21 @@ class QueueController < ApplicationController
     redirect to "/settings/#{current_user.username}"
   end
 
+  get '/queue/:username/edit' do |username|
+    redirect to "/" if !logged_in? || current_user.username != username
+
+    @queue = PhotoQueue.includes(:photo).where(user_id: current_user.id)
+    erb :'/queues/edit'
+  end
+
+  patch '/queue/:username' do |username|
+    redirect to "/" if !logged_in? || current_user.username != username
+    queues = PhotoQueue.find(params[:queue])
+    current_user.photo_queues.destroy(queues)
+
+    redirect to "/settings/#{current_user.username}"
+  end
+
   delete '/queue/:username' do |username|
     redirect to "/" if !logged_in? || current_user.username != username
 

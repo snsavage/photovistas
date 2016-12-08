@@ -1,9 +1,106 @@
 require 'spec_helper'
 
 describe QueueController do
+  describe 'GET /queue/:username/edit' do
+    context 'with a valid logged in user' do
+      it 'renders /queue/:username/edit' do
+        user = create(:user_with_unsplash)
+        2.times { user.photos.create(attributes_for(:photo)) }
+
+        get("/queue/#{user.username}/edit", {},
+            'rack.session' => {user_id: user.id})
+
+        expect(last_response.status).to eq(200)
+        expect(last_response.body).to include("Edit Your Queue")
+      end
+    end
+
+    context 'with a logged out user' do
+      it 'redirects to /' do
+        user = create(:user_with_unsplash)
+
+        get("/queue/#{user.username}/edit")
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to eq(root_path)
+      end
+    end
+
+    context 'with an invalid user' do
+      it 'redirects to /' do
+        user = create(:user_with_unsplash)
+        invalid = create(:user)
+
+        get("/queue/#{user.username}/edit", {},
+            'rack.session' => {user_id: invalid.id})
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to eq(root_path)
+      end
+    end
+  end
+
   describe 'PATCH /queue/:username' do
-    it 'removes items from user queue' do
-      skip
+    context 'with a valid logged in user' do
+      it 'removes items from user queue' do
+        user = create(:user_with_unsplash)
+        2.times { user.photos.create(attributes_for(:photo)) }
+
+        {queue: [] << user.photo_queues.first.id}
+
+        expect{
+          patch(
+            "/queue/#{user.username}",
+            {queue: [] << user.photo_queues.first.id},
+              'rack.session' => {user_id: user.id}
+          )
+        }.to change{user.photo_queues.count}.by(-1)
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to include("/settings/#{user.username}")
+      end
+    end
+
+    context 'with an invalid user' do
+      it 'redirects to /' do
+        user = create(:user_with_unsplash)
+        invalid = create(:user_with_unsplash)
+
+        2.times { user.photos.create(attributes_for(:photo)) }
+
+        {queue: [] << user.photo_queues.first.id}
+
+        expect{
+          patch(
+            "/queue/#{user.username}",
+            {queue: [] << user.photo_queues.first.id},
+              'rack.session' => {user_id: invalid.id}
+          )
+        }.not_to change{user.photo_queues.count}
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to include(root_path)
+      end
+    end
+
+    context 'with an invalid user' do
+      it 'redirects to /' do
+        user = create(:user_with_unsplash)
+
+        2.times { user.photos.create(attributes_for(:photo)) }
+
+        {queue: [] << user.photo_queues.first.id}
+
+        expect{
+          patch(
+            "/queue/#{user.username}",
+            {queue: [] << user.photo_queues.first.id}
+          )
+        }.not_to change{user.photo_queues.count}
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to include(root_path)
+      end
     end
   end
 

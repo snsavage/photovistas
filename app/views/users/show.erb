@@ -5,6 +5,7 @@
 <hr>
 
 <h2>Your Queue has <%= current_user.photos.count %> Photos</h2>
+<a href="/queue/<%= current_user.username %>/edit">Edit Your Queue</a>
 
 <a href="/bookmark/<%= current_user.username %>">Bookmark</a>
 
