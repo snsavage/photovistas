@@ -17,8 +17,19 @@ class UnsplashPhotos
 
   private
   def set_photo_attributes(photo)
-    {unsplash_id: photo.id,
-     thumb_url: photo.urls.thumb}
+    {
+      unsplash_id: photo.id,
+      width: photo.width,
+      height: photo.height,
+      photographer_name: photo.user.name,
+      photographer_link: photo.links.html,
+      raw_url: photo.urls.raw,
+      full_url: photo.urls.full,
+      regular_url: photo.urls.regular,
+      small_url: photo.urls.small,
+      thumb_url: photo.urls.thumb,
+      link: photo.links.html
+    }
   end
 
   def get_photos(method)
