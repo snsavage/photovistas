@@ -17,5 +17,12 @@ class QueueController < ApplicationController
 
     redirect to "/settings/#{current_user.username}"
   end
+
+  delete '/queue/:username' do |username|
+    redirect to "/" if !logged_in? || current_user.username != username
+
+    current_user.photo_queues.clear
+    redirect to "/settings/#{current_user.username}"
+  end
 end
 
