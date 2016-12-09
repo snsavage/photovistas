@@ -4,6 +4,30 @@ vcr_options = {record: :once}
 
 feature 'user settings', :feature do
   context 'with an unsplash usersname' do
+    scenario 'manage queue', vcr: {record: :new_episodes} do
+      user = create(:user_with_unsplash)
+      visit '/login'
+      fill_in('username', with: user.username)
+      fill_in('password', with: user.password)
+      click_button ('Log in')
+
+      expect{
+        click_button ('Add Liked Photos to Queue')
+      }.to change{user.photo_queues.count}
+
+      click_link('Edit Your Queue')
+
+      check("queue1")
+
+      expect{
+        click_button ("Update Queue")
+      }.to change{user.photo_queues.count}.by(-1)
+
+      expect{
+        click_button ('Add Liked Photos to Queue')
+      }.to change{user.photo_queues.count}.by(1)
+    end
+
     scenario 'shows likes', vcr: vcr_options do
       user = create(:user_with_unsplash)
       visit '/login'

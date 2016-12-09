@@ -1,6 +1,27 @@
 require 'spec_helper'
 
 describe User do
+  describe '#add_photos_to_queue' do
+    it 'controls for duplications and validation errors' do
+      user = create(:user)
+      photos = 10.times.map do |x|
+        {unsplash_id: "unsplash_#{x}"}
+      end
+
+      user.add_photos_to_queue(photos)
+
+      to_destroy = user.photo_queues.first(3)
+
+      expect{
+        user.photo_queues.destroy(to_destroy)
+      }.to change{user.photo_queues.count}.by(-3)
+
+      expect{
+        user.add_photos_to_queue(photos)
+      }.to change{user.photo_queues.count}.by(3)
+    end
+  end
+
   it 'has many photos' do
     user = create(:user)
     user.photos << create(:photo) << create(:photo)

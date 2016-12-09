@@ -6,7 +6,10 @@
     <% @queue.each do |queue| %>
       <img src="<%= queue.photo.thumb_url %>">
       <label>Delete
-        <input type="checkbox" name="queue[]" value="<%= queue.id %>">
+        <input type="checkbox" 
+               id="queue<%= queue.id %>" 
+               name="queue[]" 
+               value="<%= queue.id %>">
         <label>
         <% end %>
         <input name="update" type="submit" value="Update Queue">
