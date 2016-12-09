@@ -7,6 +7,8 @@ describe UsersController do
       user.photos.create(attributes_for(:photo))
 
       get "/bookmark/#{user.username}", {}, 'rack.session' => {user_id: user.id}
+
+      expect(last_response.status).to eq(200)
     end
   end
 
