@@ -24,6 +24,7 @@ FactoryGirl.define do
 
     factory :user_with_unsplash do
       unsplash_token unsplash_data
+      unsplash_username "scott_qf"
     end
   end
 

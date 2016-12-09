@@ -1,5 +1,6 @@
 class UnsplashPhotos
   attr_accessor :user
+
   def initialize(unsplash_user: nil, collection_id: nil)
     @user = unsplash_user
     @liked = nil

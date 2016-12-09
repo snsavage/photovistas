@@ -103,15 +103,19 @@ describe UsersController do
     end
 
     context 'when a user has an unsplash account' do
-      it 'displays unsplash username', :vcr do
+      it 'displays unsplash username', vcr: {record: :once} do
         user = create(:user_with_unsplash)
-
         get "/settings/#{user.username}", {}, 'rack.session' => {user_id: user.id}
 
         expect(last_response.body).to include("Unsplash Username")
       end
 
-      it 'displays link to remove unsplash account' do
+      it 'displays link to remove unsplash account', vcr: {record: :once} do
+        user = create(:user_with_unsplash)
+
+        get "/settings/#{user.username}", {}, 'rack.session' => {user_id: user.id}
+
+        expect(last_response.body).to include("Unlink Unsplash Account")
       end
     end
   end

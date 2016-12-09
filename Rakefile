@@ -20,6 +20,12 @@ namespace :db do
       puts "DB Clear: *** DO NOT RUN THIS IN PRODUCTION*** "
     end
   end
+
+  desc "Update photos counter cache"
+  task :photo_count do
+    User.find_each {|user| User.reset_counters(user.id, :photos_count) }
+    puts "DB Photo Count: User Photos Count Updated"
+  end
 end
 
 namespace :unsplash do

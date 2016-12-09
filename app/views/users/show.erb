@@ -4,19 +4,30 @@
 
 <hr>
 
-<h2>Your Queue has <%= current_user.photos.count %> Photos</h2>
+<h2>Your Queue has <%= @total_photos %> Photos</h2>
+
+<% if @queue_sample %>
+  <% @queue_sample.each do |photo| %>
+    <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
+      <img src="<%= photo.thumb_url %>">
+    </a>
+  <% end %>
+<% end %>
+
 <a href="/queue/<%= current_user.username %>/edit">Edit Your Queue</a>
 
 <a href="/bookmark/<%= current_user.username %>">Bookmark</a>
 
+<hr>
+
 <% if unsplash_user %>
-  <h3>Your Liked Photos (Total: <%= @count_of_likes %>)</h3>
-  <% @likes.each do |photo| %>
-    <a href="https://unsplash.com/?photo=<%= photo[:id]%>" target="_blank">
-      <img src="<%= photo[:thumb] %>">
+  <h3>Your Liked Photos (Total: <%= @unsplash_data.likes_count %>)</h3>
+  <% @unsplash_data.likes.first(5).each do |photo| %>
+    <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
+      <img src="<%= photo.thumb_url %>">
     </a>
   <% end %>
-  <a href="https://unsplash.com/@<%= @unsplash_username %>/likes" target="_blank">
+  <a href="https://unsplash.com/@<%= current_user.unsplash_username %>/likes" target="_blank">
     View All
   </a>
   <form action="/queue/<%= current_user.username %>" method="post">
@@ -25,15 +36,15 @@
   </form>
 
   <h3>Your Photo Collections</h3>
-  <% @collections.each do |collection| %>
-    <h4><%= collection[:title] %> (Total: <%= collection[:count] %>)</h4>
-    <% collection[:photos].each do |photo| %>
-      <a href="https://unsplash.com/?photo=<%= photo[:id]%>" target="_blank">
-        <img src="<%= photo[:thumb] %>">
+  <% @unsplash_data.collections.each do |collection| %>
+    <h4><%= collection.title %> (Total: <%= collection.count %>)</h4>
+    <% collection.photos.first(5).each do |photo| %>
+      <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
+        <img src="<%= photo.thumb_url %>">
       </a>
     <% end %>
 
-    <a href="http://unsplash.com/collections/<%= collection[:id] %>" target="_blank">
+    <a href="http://unsplash.com/collections/<%= collection.id %>" target="_blank">
       View Collection
     </a>
 
@@ -43,7 +54,7 @@
              name="collections" 
              value="<%= collection[:id] %>">
       <input type="submit" 
-             value="Add Collection <%= collection[:title] %> to Queue">
+             value="Add Collection <%= collection.title %> to Queue">
     </form>
   <% end %>
 <% end %>
@@ -66,7 +77,7 @@
 <div>
   <% if unsplash_user %>
     <div>
-      <p>Unsplash Username: <%= unsplash_user[:username] %><p>
+      <p>Unsplash Username: <%= current_user.unsplash_username %><p>
       <a href="/unsplash/unlink">Unlink Unsplash Account</a>
     </div>
     <p>(Unlinking will remove Photo Vistas' access to your Unsplash account.  Your photos will remain in their queue, but you won't be able to add additional photos from your account.  Please note, this will not deauthorize Photo Vistas from your Unsplash account.)

@@ -25,35 +25,6 @@ class UsersController < ApplicationController
     end
   end
 
-  get '/settings/?:username?' do |username|
-    if logged_in? && username == current_user.username
-      if unsplash_user
-        all_likes = unsplash_user.likes
-        @likes = all_likes.first(5).map do |photo|
-          {id: photo.id, thumb: photo.urls.thumb}
-        end
-        @unsplash_username = unsplash_user.username
-
-        @count_of_likes = unsplash_user.total_likes
-
-        @collections = Unsplash::User.current.collections.map do |collection|
-          {
-            title: collection.title,
-            id: collection.id,
-            count: collection.total_photos,
-            photos: collection.photos.first(5).map do |photo|
-              {id: photo.id, thumb: photo.urls.thumb}
-            end
-          }
-        end
-      end
-
-      erb :'users/show'
-    else
-      redirect to"/"
-    end
-  end
-
   get '/settings/:username/edit' do |username|
     if logged_in? && current_user.username == username
       @user_data = {username: current_user.username, email: current_user.email}
@@ -88,5 +59,21 @@ class UsersController < ApplicationController
       erb :'/users/edit'
     end
   end
+
+  get '/settings/?:username?' do |username|
+    if logged_in? && username == current_user.username
+      if unsplash_user
+        @total_photos = current_user.photo_queues.size
+        @queue_sample = current_user.photos.sample(5)
+
+        @unsplash_data = UnsplashSettings.new(unsplash_user).refresh
+      end
+
+      erb :'users/show'
+    else
+      redirect to"/"
+    end
+  end
 end
+
 
