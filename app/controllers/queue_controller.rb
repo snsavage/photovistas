@@ -2,6 +2,8 @@ require_relative 'application_controller'
 
 class QueueController < ApplicationController
   post '/queue/:username' do |username|
+    redirect to "/" if !logged_in? || current_user.username != username
+
     if unsplash_user
       if params[:collections] == "liked"
         photos = UnsplashPhotos.new(unsplash_user: unsplash_user).liked

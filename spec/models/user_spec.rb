@@ -2,6 +2,14 @@ require 'spec_helper'
 
 describe User do
   describe '#add_photos_to_queue' do
+    it 'does not add nil records' do
+      user = create(:user)
+
+      expect{
+        user.add_photos_to_queue(nil)
+      }.not_to change{user.photo_queues.count}
+    end
+
     it 'controls for duplications and validation errors' do
       user = create(:user)
       photos = 10.times.map do |x|

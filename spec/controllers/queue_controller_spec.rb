@@ -142,13 +142,46 @@ describe QueueController do
     end
     context 'with the wrong user' do
       it 'redirects to /settings/:username' do
-        skip
+        user = create(:user_with_unsplash)
+        invalid = create(:user_with_unsplash)
+
+        expect{
+        post("/queue/#{user.username}",
+             params = {collections: "liked"},
+             'rack.session' => {user_id: invalid.id})
+        }.not_to change{invalid.photo_queues.count}
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to eq(root_path)
       end
     end
 
     context 'with a logged out user' do
       it 'redirects to /' do
-        skip
+        user = create(:user_with_unsplash)
+
+        expect{
+        post("/queue/#{user.username}",
+             params = {collections: "liked"})
+        }.not_to change{user.photo_queues.count}
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to eq(root_path)
+      end
+    end
+
+    context 'when a user does not have an unsplash account' do
+      it 'redirects to /' do
+        user = create(:user)
+
+        expect{
+        post("/queue/#{user.username}",
+             params = {collections: "liked"},
+             'rack.session' => {user_id: user.id})
+        }.not_to change{user.photo_queues.count}
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to include("/settings/#{user.username}")
       end
     end
   end
