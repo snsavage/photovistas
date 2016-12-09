@@ -12,12 +12,13 @@ gem 'rake'
 gem "rack-flash3", :require => "rack-flash"
 # gem 'unsplash', '~>1.4'
 gem 'unsplash', git: "https://github.com/snsavage/unsplash_rb.git", branch: "savage"
+gem 'sprockets'
+gem 'uglifier'
+gem 'sass'
 
 group :development, :test do
   gem 'dotenv'
   gem 'pry'
-  # gem 'better_errors'
-  # gem 'binding_of_caller'
 end
 
 group :test do
