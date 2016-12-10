@@ -3,16 +3,23 @@
 <% if @queue %>
   <form action="/queue/<%= current_user.username %>" method="post">
     <input id="hidden" type="hidden" name="_method" value="patch">
-    <% @queue.each do |queue| %>
-      <img src="<%= queue.photo.thumb_url %>">
-      <label>Delete
-        <input type="checkbox" 
-               id="queue<%= queue.id %>" 
-               name="queue[]" 
-               value="<%= queue.id %>">
-        <label>
-        <% end %>
-        <input name="update" type="submit" value="Update Queue">
+    <div class="cards">
+      <% @queue.each do |queue| %>
+        <div class="card">
+          <div class="card-image">
+            <img src="<%= queue.photo.thumb_url %>">
+          </div>
+          <div class="card-copy">
+            <label>
+              <input type="checkbox" id="queue<%= queue.id %>" 
+                     name="queue[]" value="<%= queue.id %>">
+              Remove from Queue
+            </label>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <input name="update" type="submit" value="Update Queue">
   </form>
 <% end %>
 

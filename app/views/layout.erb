@@ -6,22 +6,7 @@
     <title>Photo Vistas</title>
   </head>
   <body>
-    <header>
-      <h1><a href="/">Photo Vistas</a></h1>
-      <ul>
-        <% if logged_in? %>
-          <li>
-            <a href="/settings/<%= current_user.username %>">
-              Settings
-            </a>
-          </li>
-          <li><a href="/logout">Log out</a></li>
-        <% else %>
-          <li><a href="/login">Log in</a></li>
-          <li><a href="/signup">Sign Up</a></li>
-        <% end %>
-      </ul>
-    </header>
+    <%= erb :nav %>
     <main>
 
     <% if flash[:notice] %>

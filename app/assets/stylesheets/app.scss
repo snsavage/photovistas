@@ -1,5 +1,21 @@
-h2 {
-  color: blue;
+@import "normalize.css";
+@import "bourbon/bourbon";
+@import "neat/neat";
+
+@import "nav";
+@import "type";
+@import "card";
+@import "hero";
+
+$max-width: 100% !global;
+
+body {
+  -webkit-font-smoothing: antialiased;
 }
+
+body {
+  @include outer-container;
+}
+
 
 
