@@ -6,18 +6,21 @@
     <title>Photo Vistas</title>
   </head>
   <body>
-    <%= erb :nav %>
-    <main>
 
-    <% if flash[:notice] %>
-      <div>
-        <p><%= flash[:notice] %></p>
-      </div>
-    <% end %>
+    <div class="wrapper-for-content-outside-of-footer">
+      <%= erb :nav %>
+
+      <main>
+      <% if flash[:notice] %>
+        <div>
+          <p><%= flash[:notice] %></p>
+        </div>
+      <% end %>
 
       <%= yield %>
-    </main>
-    <footer>
-    </footer>
+      </main>
+    </div>
+
+    <%= erb :footer %>
   </body>
 </html

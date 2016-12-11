@@ -1,11 +1,13 @@
 @import "normalize.css";
 @import "bourbon/bourbon";
 @import "neat/neat";
+@import "base/base";
 
 @import "nav";
 @import "type";
 @import "card";
 @import "hero";
+@import "footer";
 
 $max-width: 100% !global;
 

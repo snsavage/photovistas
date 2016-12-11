@@ -19,6 +19,7 @@ gem 'uglifier'
 gem 'sass'
 gem 'bourbon'
 gem 'neat'
+gem 'bitters'
 
 group :development, :test do
   gem 'dotenv'

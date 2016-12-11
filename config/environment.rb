@@ -13,7 +13,7 @@ Unsplash.configure do |config|
   config.application_secret = ENV['UNSPLASH_SECRET']
   config.application_redirect_uri = ENV['UNSPLASH_REDIRECT_URI']
   if ENV['RACK_ENV'] != "production"
-    config.application_redirect_uri = "http://127.0.0.1:9393/unsplash/callback"
+    config.application_redirect_uri = "http://127.0.0.1:9292/unsplash/callback"
   end
 end
 
