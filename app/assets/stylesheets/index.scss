@@ -1,0 +1,37 @@
+main {
+  section {
+    @include span-columns(12);
+
+    margin-bottom: 1em;
+  }
+
+  .description {
+    @include span-columns(6);
+    @include shift(3);
+    text-align: center;
+
+    h1 {
+      font-size: 2em;
+    }
+  }
+
+  .getting-started {
+    h1 {
+      text-align: center;
+      font-size: 2em;
+    }
+  }
+
+  .enjoy {
+    text-align: center;
+    font-size: 2em;
+    margin-top: 1.5em;
+  }
+
+  .alternative {
+    @include span-columns(8);
+    @include shift(2);
+
+    font-style: italic;
+  }
+}
