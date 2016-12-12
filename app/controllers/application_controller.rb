@@ -26,7 +26,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    erb :index
+    erb :index, locals: {clear: true}
   end
 end
 

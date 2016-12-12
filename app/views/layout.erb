@@ -2,7 +2,9 @@
 <html>
   <head>
     <link rel="stylesheet" href="/assets/app.css">
-    <%# <script src="/assets/app.js"></script> %>
+    <% if clear ||= nil %>
+      <link rel="stylesheet" href="/assets/clear.css">
+    <% end %>
     <title>Photo Vistas</title>
   </head>
   <body>

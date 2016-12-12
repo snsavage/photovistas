@@ -12,6 +12,7 @@ $nav-text-color: rgb(221, 221, 221);
 header {
   height: $nav-height;
   color: $nav-bar-color;
+  background-color: $nav-bar-background-color;
   z-index: 999;
 
   nav {

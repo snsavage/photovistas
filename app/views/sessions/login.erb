@@ -1,14 +1,15 @@
-<h2>Login</h2>
+<main class="login">
 
-<% if flash[:login_errors] %>
-  <ul>
-    <li>Error: <%= flash[:login_erros] %></li>
-  </ul>
-<% end %>
+<%= erb :flash %>
 
-<form action="/login" method="post">
-  <label>Username: <input type="text" name="username"></label>
-  <label>Password: <input type="password" name="password"></label>
-  <input type="submit" value="Log in">
-</form>
+<section>
+  <h1>Photo Vistas Log in</h1>
+
+  <form action="/login" method="post">
+    <label>Username: <input type="text" name="username"></label>
+    <label>Password: <input type="password" name="password"></label>
+    <input type="submit" value="Log in">
+  </form>
+</section>
+</main>
 
