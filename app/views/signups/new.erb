@@ -1,34 +1,33 @@
-<h2>Create an Account</h2>
+<main class="signup">
 
-<% if flash[:form_errors] %>
-  <ul>
-    <% flash[:form_errors].each do |error| %>
-      <li>Error: <%= error %></li>
-    <% end %>
-  </ul>
-<% end %>
+<%= erb :flash %>
 
-<form action="/signup" method="post">
-  <label>Username: 
-    <input type="text" id="username" name="credentials[username]">
-  </label>
+<section>
+  <h1>Create an Account</h1>
 
-  <label>Email: 
-    <input type="text" id="email" name="credentials[email]">
-  </label>
+  <form action="/signup" method="post">
+    <label>Username: 
+      <input type="text" id="username" name="credentials[username]">
+    </label>
 
-  <label>Password: 
-    <input type="password" id="password" name="credentials[password]">
-  </label>
+    <label>Email: 
+      <input type="text" id="email" name="credentials[email]">
+    </label>
 
-  <label>Password Confirmation: 
-    <input type="password" id="confirm" name="credentials[password_confirmation]">
-  </label>
+    <label>Password: 
+      <input type="password" id="password" name="credentials[password]">
+    </label>
 
-  <label>
-    <input type="checkbox" id="unsplash" name="unsplash" value="unsplash">
-    Link Your Unsplash Account After Sign Up (This will redirect you to the Unsplash authorization page when you click "Sign Up"
-  </label>
-  <input name="signup" type="submit" value="Sign Up">
-</form>
+    <label>Password Confirmation: 
+      <input type="password" id="confirm" name="credentials[password_confirmation]">
+    </label>
 
+    <label>
+      <input type="checkbox" id="unsplash" name="unsplash" value="unsplash">
+      Link Your Unsplash Account After Sign Up <em>(This will redirect you to
+        the Unsplash authorization page when you click "Sign Up"</em>
+    </label>
+    <input name="signup" type="submit" value="Sign Up">
+  </form>
+</section>
+</main>
