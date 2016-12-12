@@ -6,8 +6,7 @@
     <title>Photo Vistas</title>
   </head>
   <body>
-
-    <div class="wrapper-for-content-outside-of-footer">
+    <div class="container">
       <%= erb :nav %>
 
       <main>
@@ -19,8 +18,8 @@
 
       <%= yield %>
       </main>
-    </div>
 
-    <%= erb :footer %>
+      <%= erb :footer %>
+    </div>
   </body>
 </html

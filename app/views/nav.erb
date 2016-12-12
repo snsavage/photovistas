@@ -1,27 +1,23 @@
-<header class="navigation" role="banner">
-  <div class="navigation-wrapper">
-    <a href="/" class="navigation-menu-button" id="js-mobile-menu">Photo Vistas</a>
-    <nav role="navigation">
-      <ul id="site-title" class="navigation-menu hide">
-        <li class="nav-link"><a href="/">Photo Vistas</a></li>
-      </ul>
-    </nav>
-    <div class="navigation-tools">
-      <nav role="navigation">
-        <ul id="js-navigation-menu" class="navigation-menu show">
-          <% if logged_in? %>
-            <li class="nav-link">
-              <a href="/settings/<%= current_user.username %>">
-                Settings
-              </a>
-            </li>
-            <li class="nav-link"><a href="/logout">Log out</a></li>
-          <% else %>
-            <li class="nav-link"><a href="/login">Log in</a></li>
-            <li class="nav-link"><a href="/signup">Sign up</a></li>
-          <% end %>
-        </ul>
-      </nav>
-    </div>
-  </div>
+<header>
+  <nav class="clearfix hidden-nav-menu">
+    <h1><a href="/">Photo Vistas</a></h1>
+    <h1 class="hidden-nav-trigger">
+      <a href="#">
+        <i aria-hidden="true">Menu</i>
+      </a>
+    </h1>
+    <ul class="nav-menu">
+      <% if logged_in? %>
+        <li class="nav-link">
+          <a href="/settings/<%= current_user.username %>">
+            Settings
+          </a>
+        </li>
+        <li class="nav-link"><a href="/logout">Log out</a></li>
+      <% else %>
+        <li class="nav-link"><a href="/login">Log in</a></li>
+        <li class="nav-link"><a href="/signup">Sign up</a></li>
+      <% end %>
+    </ul>
+  </nav>
 </header>
