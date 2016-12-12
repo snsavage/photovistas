@@ -7,6 +7,92 @@ $nav-bar-background-color: hsl(0, 0%, 20%);;
 $nav-bar-color: white;
 $nav-hover-background: hsl(198, 100%, 37%);
 $nav-focus-background: $nav-hover-background;
+$nav-text-color: rgb(221, 221, 221);
+
+header {
+  height: $nav-height;
+  color: $nav-bar-color;
+  z-index: 999;
+
+  nav {
+    height: $nav-height;
+
+    h1 {
+      font-size: $nav-title-size;
+      line-height: $nav-title-line-height;
+      margin: 0;
+      padding: 0;
+      padding-left: 1em;
+      display: inline-block;
+      color: $nav-bar-color;
+
+      a {
+        text-decoration: none;
+
+        &:link, &:visited {
+          color: $nav-bar-color;
+        }
+
+        &:hover, &:focus {
+          color: $nav-text-color;
+        }
+      }
+    }
+
+    ul {
+      float: right;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+
+      li {
+        font-size: $nav-links-size;
+        line-height: $nav-links-line-height;
+        display: inline-block;
+        list-style-type: none;
+
+        a {
+          padding: 0 1em;
+          display: block;
+          text-align: center;
+          text-decoration: none;
+          color: $nav-bar-color;
+
+          &:link, &:visited {
+            color: $nav-bar-color;
+          }
+
+          &:hover, &:focus {
+            color: $nav-text-color;
+          }
+        }
+      }
+    }
+
+    .hidden-nav-trigger {
+      float: right;
+      padding: 0 1em;
+
+      i {
+        font-style: normal;
+        font-size: 0.75em;
+      }
+
+      a {
+        color: $nav-bar-color;
+      }
+
+      &:link, &:visited {
+        color: $nav-bar-color;
+      }
+
+      &:hover, &:focus {
+        background-color: $nav-bar-background-color;
+      }
+    }
+  }
+
+}
 
 @media only screen and (min-width: 601px) {
   .hidden-nav-trigger {
@@ -14,139 +100,41 @@ $nav-focus-background: $nav-hover-background;
   }
 }
 
-@media only screen and (max-width: 650px) {
-  header {
-    background-color: $nav-bar-background-color;
-  }
-}
-
-header {
-  height: $nav-height;
-  color: $nav-bar-color;
-  z-index: 999;
-  padding-left: 2em;
-}
-
-nav {
-  height: $nav-height;
-}
-
-nav h1 {
-  font-size: $nav-title-size;
-  line-height: $nav-title-line-height;
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  color: $nav-bar-color;
-}
-
-nav ul {
-  float: right;
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-nav li {
-  font-size: $nav-links-size;
-  line-height: $nav-links-line-height;
-  display: inline-block;
-  list-style-type: none;
-}
-
-.hidden-nav-trigger {
-  float: right;
-  padding: 0 1em;
-
-  i {
-    font-style: normal;
-    font-size: 0.75em;
-  }
-
-  &:link {
-    color: $nav-bar-color;
-  }
-  &:visited {
-    color: $nav-bar-color;
-  }
-  &:hover {
-    background-color: $nav-hover-background;
-  }
-  &:focus {
-    background-color: $nav-focus-background;
-  }
-}
-
 @media only screen and (max-width: 600px) {
   header {
     height: 100%;
-  }
 
-  nav {
-    height: 100%;
-  }
+    .hidden-nav-menu {
+      &:hover > .nav-menu, &:active > .nav-menu, &:focus + .nav-menu {
+        display: block;
+      }
+    }
 
-  .nav-menu {
-    // float: left;
-    clear: both;
-    width: 100%;
-    display: none;
-    // text-align: center;
-    // position: absolute;
-    // top: $nav-height;
-    // right: -10%;
-    background-color: $nav-bar-background-color;
-  }
+    nav {
+      height: 100%;
 
-  .nav-menu li {
-    float: none;
-    width: 100%;
-  }
-}
+      .nav-menu {
+        clear: both;
+        width: 25%;
+        display: none;
+        background-color: $nav-bar-background-color;
+        position: absolute;
+        right: 0;
 
-.hidden-nav-menu:hover > .nav-menu {
-  display: block;
-}
+        li {
+          float: none;
+          width: 100%;
 
-.hidden-nav-menu:active > .nav-menu {
-  display: block;
-}
+          &:hover, &:active, &:focus {
+            background-color: $nav-text-color;
 
-.hidden-nav-trigger:focus + .nav-menu {
-  display: block;
-}
-
-.hidden-nav-trigger a {
-  color: $nav-bar-color;
-}
-
-nav li a {
-  padding: 0 1em;
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  color: $nav-bar-color;
-
-  &:link, &:visited {
-    color: $nav-bar-color;
-  }
-
-  &:hover, &:focus {
-    // background-color: $nav-hover-background;
-    color: rgb(221, 221, 221);
+            a {
+              color: $nav-bar-background-color;
+            }
+          }
+        }
+      }
+    }
   }
 }
-
-nav h1 a {
-  text-decoration: none;
-
-  &:link, &:visited {
-    color: $nav-bar-color;
-  }
-
-  &:hover, &:focus {
-    color: rgb(221, 221, 221);
-  }
-}
-
 
