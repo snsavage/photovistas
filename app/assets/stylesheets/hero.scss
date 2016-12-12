@@ -21,6 +21,7 @@
     url("https://source.unsplash.com/user/snsavage/likes/1600x900");
 
   .hero-content {
+    @include outer-container;
     text-align: center;
 
     h1 {

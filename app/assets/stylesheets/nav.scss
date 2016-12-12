@@ -15,6 +15,7 @@ header {
   z-index: 999;
 
   nav {
+    @include outer-container;
     height: $nav-height;
 
     h1 {

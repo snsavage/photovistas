@@ -2,22 +2,14 @@
 <html>
   <head>
     <link rel="stylesheet" href="/assets/app.css">
-    <script src="/assets/app.js"></script>
+    <%# <script src="/assets/app.js"></script> %>
     <title>Photo Vistas</title>
   </head>
   <body>
     <div class="container">
       <%= erb :nav %>
 
-      <main>
-      <% if flash[:notice] %>
-        <div>
-          <p><%= flash[:notice] %></p>
-        </div>
-      <% end %>
-
       <%= yield %>
-      </main>
 
       <%= erb :footer %>
     </div>
