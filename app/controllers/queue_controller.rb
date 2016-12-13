@@ -14,7 +14,7 @@ class QueueController < ApplicationController
       end
 
       current_user.add_photos_to_queue(photos)
-      flash[:notice] = "Your Queue has been updated."
+      flash[:notice] = ["Your Queue has been updated."]
     end
 
     redirect to "/settings/#{current_user.username}"
@@ -33,6 +33,8 @@ class QueueController < ApplicationController
     if params[:queue]
       queues = PhotoQueue.find(params[:queue])
       current_user.photo_queues.destroy(queues)
+
+      flash[:notice] = ["Your Queue has been updated."]
     end
 
     redirect to "/settings/#{current_user.username}"
@@ -42,6 +44,8 @@ class QueueController < ApplicationController
     redirect to "/" if !logged_in? || current_user.username != username
 
     current_user.photo_queues.clear
+    flash[:notice] = ["All photos have been removed from your Queue."]
+
     redirect to "/settings/#{current_user.username}"
   end
 end

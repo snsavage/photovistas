@@ -1,5 +1,12 @@
-<% if flash[:notice] %>
-  <div>
-    <p><%= flash[:notice] %></p>
-  </div>
+<% if flash.keys.any? %>
+  <section class="flash">
+    <% flash.keys.each do |key| %>
+      <% flash[key].each do |message| %>
+        <div class="flash flash-<%= key.to_s %>">
+          <span><%= message %></span>
+        </div>
+      <% end %>
+  <% end %>
+  </section>
 <% end %>
+

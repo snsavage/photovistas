@@ -9,13 +9,6 @@ class ApplicationController < Sinatra::Base
   set :session_secret, "secret" if !production?
   use Rack::Flash, sweep: true
 
-  # assets_env = Sprockets::Environment.new
-  # assets_env.append_path "app/assets/stylesheets"
-  # assets_env.append_path "app/assets/javascripts"
-
-  # assets_env.js_compressor  = :uglify
-  # assets_env.css_compressor = :sass
-
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'

@@ -17,7 +17,7 @@ class UnsplashController < ApplicationController
         unsplash_authorize(params[:code])
         unsplash_save_token
       rescue Exception => e
-        flash[:notice] = "Unable to access Unsplash account.  Please try again."
+        flash[:error] = ["Unable to access Unsplash account.  Please try again."]
         logger.info "*** Unsplash Error: #{e.message} ***"
       end
     end

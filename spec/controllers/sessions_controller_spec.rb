@@ -43,7 +43,7 @@ describe SessionsController do
 
       it 'flashes error message' do
         post '/login'
-        expect(last_response.body).to include('Error: ')
+        expect(last_response.body).to include('Please provide a valid username and password.')
       end
     end
 

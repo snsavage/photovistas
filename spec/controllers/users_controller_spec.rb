@@ -67,7 +67,7 @@ describe UsersController do
 
       it 'flashes error message' do
         post '/signup'
-        expect(last_response.body).to include('Error')
+        expect(last_response.body).to include('flash flash-error')
       end
     end
 
@@ -270,7 +270,7 @@ describe UsersController do
         patch("/settings/#{user.username}", params,
               'rack.session' => {user_id: user.id})
 
-        expect(last_response.body).to include("Error: Please provide your current password to change passwords.")
+        expect(last_response.body).to include("Please provide your current password to change passwords.")
       end
     end
 
@@ -282,7 +282,7 @@ describe UsersController do
         patch("/settings/#{user.username}", params,
               'rack.session' => {user_id: user.id})
 
-        expect(last_response.body).to include("Error: ")
+        expect(last_response.body).to include("flash flash-error")
         expect(last_response.body).not_to include("provide your current password")
       end
 

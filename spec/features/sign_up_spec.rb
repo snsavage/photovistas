@@ -77,17 +77,18 @@ feature 'user sign up', type: :feature do
 
     # Provide form with invalid input to trigger form errors flash.
     visit '/signup'
-    click_button ('Sign Up')
-    expect(page.body).to include("Error:")
+    click_button ('Sign up')
+    expect(page.body).to include("flash flash-error")
 
     # Return to site home page.
     click_link 'Vistas'
     expect(page.current_path).to include("/")
 
     # Go back to sign up page.
-    click_link 'Sign Up'
+    within('header') { click_link 'Sign up' }
+
     expect(page.current_path).to include("/signup")
-    expect(page.body).not_to include("Error:")
+    expect(page.body).not_to include("flash flash-error")
   end
 end
 

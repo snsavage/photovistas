@@ -20,7 +20,8 @@ class UsersController < ApplicationController
       redirect to "/unsplash/auth" if params[:unsplash]
       redirect to "/settings/#{user.username}"
     else
-      flash[:form_errors] = user.errors.full_messages
+      flash[:error] = user.errors.full_messages
+
       erb :'/signups/new'
     end
   end
@@ -35,7 +36,6 @@ class UsersController < ApplicationController
   end
 
   patch '/settings/:username' do |username|
-    # binding.pry
     redirect to "/" if !logged_in? || current_user.username != username
 
     @user_data = {
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
       params[:credentials][:password] != "" &&
       !current_user.authenticate(params[:current])
 
-      flash[:form_errors] =
+      flash[:error] =
         ["Please provide your current password to change passwords."]
 
       halt erb(:'/users/edit')
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     if current_user.valid?
       redirect to "/settings/#{current_user.username}"
     else
-      flash[:form_errors] = current_user.errors.full_messages
+      flash[:error] = current_user.errors.full_messages
       erb :'/users/edit'
     end
   end
