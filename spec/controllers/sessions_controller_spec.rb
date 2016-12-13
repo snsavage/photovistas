@@ -38,7 +38,7 @@ describe SessionsController do
         post '/login'
 
         expect(last_response.status).to eq(200)
-        expect(last_response.body).to include('<h2>Login</h2>')
+        expect(last_response.body).to include('<h1>Photo Vistas Log in</h1>')
       end
 
       it 'flashes error message' do
