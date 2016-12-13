@@ -35,6 +35,7 @@ class UsersController < ApplicationController
   end
 
   patch '/settings/:username' do |username|
+    # binding.pry
     redirect to "/" if !logged_in? || current_user.username != username
 
     @user_data = {
@@ -42,7 +43,8 @@ class UsersController < ApplicationController
       email: params[:credentials][:email]
     }
 
-    if params[:credentials][:password] && 
+    if params[:credentials][:password] &&
+      params[:credentials][:password] != "" &&
       !current_user.authenticate(params[:current])
 
       flash[:form_errors] =

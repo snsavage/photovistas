@@ -198,6 +198,45 @@ describe UsersController do
         expect(user.email).to eq(params[:credentials][:email])
       end
 
+      it 'correctly handles password params' do
+        user = create(:user)
+        params = {
+          credentials: {
+            username: "username",
+            email: "newemail@example.org",
+            password: ""
+          }
+        }
+
+        patch("/settings/#{user.username}", params,
+              'rack.session' => {user_id: user.id})
+
+        user = User.find(user.id)
+
+        expect(user.username).to eq(params[:credentials][:username])
+        expect(user.email).to eq(params[:credentials][:email])
+      end
+
+      it 'correctly handles password confirmation' do
+        user = create(:user)
+        params = {
+          credentials: {
+            username: "username",
+            email: "newemail@example.org",
+            password: "",
+            password_confirmation: "password"
+          }
+        }
+
+        patch("/settings/#{user.username}", params,
+              'rack.session' => {user_id: user.id})
+
+        user = User.find(user.id)
+
+        expect(user.username).to eq(params[:credentials][:username])
+        expect(user.email).to eq(params[:credentials][:email])
+      end
+
       it 'changes the password' do
         user = create(:user)
         params = {
