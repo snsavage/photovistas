@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 ruby '2.3.1'
 
+gem 'puma'
 gem 'sinatra'
 gem 'require_all'
 gem 'bcrypt'
