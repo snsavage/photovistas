@@ -1,26 +1,49 @@
-<h2>Edit Your Queue</h2>
+<main class="edit-queue">
 
-<a href="/settings/<%= current_user.username %>">Back to Settings</a>
-<% if @queue %>
-  <form action="/queue/<%= current_user.username %>" method="post">
-    <input id="hidden" type="hidden" name="_method" value="patch">
-    <div class="cards">
-      <% @queue.each do |queue| %>
-        <div class="card">
-          <div class="card-image">
-            <img src="<%= queue.photo.thumb_url %>">
+<%= erb :flash %>
+
+<section>
+  <h1>Edit Your Queue</h1>
+  <a href="/settings/<%= current_user.username %>">Back to Settings</a>
+</section>
+
+<section>
+  <% if @queue %>
+    <form action="/queue/<%= current_user.username %>" method="post">
+      <input id="hidden" type="hidden" name="_method" value="patch">
+
+      <div class="queue-edit-button">
+        <input name="update" type="submit" value="Update Queue">
+      </div>
+
+      <div class="cards">
+        <% @queue.each do |queue| %>
+          <div class="card">
+            <div class="card-image">
+              <a href="https://unsplash.com/?photo=<%= queue.photo.unsplash_id %>" target="_blank">
+                <img src="<%= queue.photo.thumb_url %>">
+              </a>
+            </div>
+            <div class="card-copy">
+              <a href="https://unsplash.com/?photo=<%= queue.photo.unsplash_id %>" target="_blank">
+                View on Unsplash
+              </a>
+              <label>
+                <input type="checkbox" id="queue<%= queue.id %>" 
+                                       name="queue[]" value="<%= queue.id %>">
+                                       Remove from Queue
+              </label>
+            </div>
           </div>
-          <div class="card-copy">
-            <label>
-              <input type="checkbox" id="queue<%= queue.id %>" 
-                     name="queue[]" value="<%= queue.id %>">
-              Remove from Queue
-            </label>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <input name="update" type="submit" value="Update Queue">
-  </form>
-<% end %>
+        <% end %>
+      </div>
+
+      <div class="queue-edit-button">
+        <input name="update" type="submit" value="Update Queue">
+      </div>
+    </form>
+  <% end %>
+
+</section>
+</main>
 
