@@ -29,8 +29,11 @@ class QueueController < ApplicationController
 
   patch '/queue/:username' do |username|
     redirect to "/" if !logged_in? || current_user.username != username
-    queues = PhotoQueue.find(params[:queue])
-    current_user.photo_queues.destroy(queues)
+
+    if params[:queue]
+      queues = PhotoQueue.find(params[:queue])
+      current_user.photo_queues.destroy(queues)
+    end
 
     redirect to "/settings/#{current_user.username}"
   end

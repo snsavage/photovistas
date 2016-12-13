@@ -61,6 +61,24 @@ describe QueueController do
       end
     end
 
+    context 'when no queues are selected' do
+      it 'redirects to /settings/:username' do
+        user = create(:user_with_unsplash)
+        2.times { user.photos.create(attributes_for(:photo)) }
+
+        expect{
+          patch(
+            "/queue/#{user.username}",
+            {},
+              'rack.session' => {user_id: user.id}
+          )
+        }.not_to change{user.photo_queues.count}
+
+        expect(last_response.status).to eq(302)
+        expect(last_response.location).to include("/settings/#{user.username}")
+      end
+    end
+
     context 'with an invalid user' do
       it 'redirects to /' do
         user = create(:user_with_unsplash)
