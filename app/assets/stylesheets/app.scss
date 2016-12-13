@@ -66,3 +66,63 @@ main {
   }
 }
 
+.settings {
+  section {
+    border-bottom: 1px solid hsl(0, 0%, 20%);
+    padding-bottom: 1em;
+  }
+
+  section:last-child {
+    border-bottom: none;
+  }
+
+  .photo-collection-buttons div {
+    display: inline;
+  }
+
+  .heading {
+    div, div h1, div p {
+      display: inline;
+    }
+
+    div p {
+      margin-left: 1em;
+    }
+  }
+
+  .inline-buttons{
+    text-align: right;
+
+    h3, a, form {
+      display: inline;
+      padding-left: 1em;
+    }
+  }
+
+  section.account-settings {
+    .photo-vistas-settings {
+      @include span-columns(6);
+    }
+
+    .unsplash-settings {
+      @include span-columns(6);
+    }
+
+    .edit-settings-button {
+      margin-top: 0.5em;
+    }
+  }
+
+  section {
+    // margin-top: 2em;
+
+    h1 {
+       font-size: 2em;
+    }
+    
+    h2 {
+      font-size: 1.5em;
+    }
+  }
+}
+

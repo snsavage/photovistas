@@ -1,7 +1,7 @@
 .cards {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .card {
@@ -25,14 +25,14 @@
   border-radius: $base-border-radius;
   box-shadow: 0 2px 4px darken($base-background-color, 10%);
   cursor: pointer;
-  flex-basis: 15em;
-  flex-grow: 1;
+  flex-basis: 12em;
+  // flex-grow: 1;
   margin: 0 $card-margin $base-spacing $card-margin;
   position: relative;
   transition: all 0.2s ease-in-out;
 
   .card-image {
-    background-color: $card-image-hover-color;
+    // background-color: $card-image-hover-color;
     height: 150px;
     max-height: 150px;
     overflow: hidden;
@@ -59,6 +59,7 @@
     font-size: 0.9em;
     line-height: 1.5em;
     padding: ($base-spacing / 2) ($base-spacing / 2);
+    text-align: center;
 
     p {
       margin: 0 0 ($base-spacing / 2);

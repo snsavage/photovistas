@@ -24,4 +24,8 @@ class User < ActiveRecord::Base
       photos << in_db.select {|x| !in_queue.include?(x.id)}
     end
   end
+
+  def has_queue?
+    photo_queues.size > 0
+  end
 end

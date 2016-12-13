@@ -62,10 +62,10 @@ class UsersController < ApplicationController
 
   get '/settings/?:username?' do |username|
     if logged_in? && username == current_user.username
-      if unsplash_user
-        @total_photos = current_user.photo_queues.size
-        @queue_sample = current_user.photos.sample(5)
+      @total_photos = current_user.photo_queues.size
+      @queue_sample = current_user.photos.sample(5)
 
+      if unsplash_user
         @unsplash_data = UnsplashSettings.new(unsplash_user).refresh
       end
 

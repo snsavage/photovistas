@@ -1,90 +1,181 @@
-<h2>Settings</h2>
+<main class="settings">
 
-<p>Welcome, <%= current_user.username %>!</p>
+<%= erb :flash %>
 
-<hr>
+<section class="heading">
+  <div><h1>Photo Vistas Settings</h1></div>
+  <div><p>Welcome, <%= current_user.username %>!</p></div>
+</section>
 
-<h2>Your Queue has <%= @total_photos %> Photos</h2>
+<section class="queue">
+  <% if current_user.has_queue? %>
+    <h2>Your Queue has <%= @total_photos %> Photos Including...</h2>
 
-<% if @queue_sample %>
-  <% @queue_sample.each do |photo| %>
-    <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
-      <img src="<%= photo.thumb_url %>">
-    </a>
-  <% end %>
-<% end %>
-
-<a href="/queue/<%= current_user.username %>/edit">Edit Your Queue</a>
-
-<a href="/bookmark/<%= current_user.username %>">Bookmark</a>
-
-<hr>
-
-<% if unsplash_user %>
-  <h3>Your Liked Photos (Total: <%= @unsplash_data.likes_count %>)</h3>
-  <% @unsplash_data.likes.first(5).each do |photo| %>
-    <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
-      <img src="<%= photo.thumb_url %>">
-    </a>
-  <% end %>
-  <a href="https://unsplash.com/@<%= current_user.unsplash_username %>/likes" target="_blank">
-    View All
-  </a>
-  <form action="/queue/<%= current_user.username %>" method="post">
-    <input id="hidden" type="hidden" name="collections" value="liked">
-    <input type="submit" value="Add Liked Photos to Queue">
-  </form>
-
-  <h3>Your Photo Collections</h3>
-  <% @unsplash_data.collections.each do |collection| %>
-    <h4><%= collection.title %> (Total: <%= collection.count %>)</h4>
-    <% collection.photos.first(5).each do |photo| %>
-      <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
-        <img src="<%= photo.thumb_url %>">
-      </a>
-    <% end %>
-
-    <a href="http://unsplash.com/collections/<%= collection.id %>" target="_blank">
-      View Collection
-    </a>
-
-    <form action="/queue/<%= current_user.username %>" method="post">
-      <input id="hidden" 
-             type="hidden" 
-             name="collections" 
-             value="<%= collection[:id] %>">
-      <input type="submit" 
-             value="Add Collection <%= collection.title %> to Queue">
-    </form>
-  <% end %>
-<% end %>
-
-<hr>
-
-<div>
-  <h3>Photo Vistas Account Settings</h3>
-  <ul>
-    <li>Username: <%= current_user.username %></li>
-    <li>Email: <%= current_user.email %></li>
-  </ul>
-  <div>
-    <a href="/settings/<%= current_user.username %>/edit">
-      Edit Account Settings
-    </a>
-  </div>
-</div>
-
-<div>
-  <% if unsplash_user %>
-    <div>
-      <p>Unsplash Username: <%= current_user.unsplash_username %><p>
-      <a href="/unsplash/unlink">Unlink Unsplash Account</a>
+    <div class="cards">
+      <% if @queue_sample %>
+        <% @queue_sample.each do |photo| %>
+          <div class="card">
+            <div class="card-image">
+              <a href="https://unsplash.com/?photo=<%= photo.unsplash_id %>" target="_blank">
+                <img src="<%= photo.thumb_url %>">
+              </a>
+            </div>
+            <div class="card-copy">
+              <a href="https://unsplash.com/?photo=<%= photo.unsplash_id %>" target="_blank">
+                View on Unsplash
+              </a>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     </div>
-    <p>(Unlinking will remove Photo Vistas' access to your Unsplash account.  Your photos will remain in their queue, but you won't be able to add additional photos from your account.  Please note, this will not deauthorize Photo Vistas from your Unsplash account.)
-  <% else %>
-    <a href="/unsplash/auth">Link Unsplash Account</a>
-    <p>(Linking an Unsplash account will allow you to add liked photos, photo
-    collections and unloaded photos to your Photo Vistas queue.)</p>
-  <% end %>
-</div>
 
+    <div class="inline-buttons">
+      <h3>View & Edit Your Queue</h3>
+      <a href="/queue/<%= current_user.username %>/edit">
+        <button>Open Queue</button>
+      </a>
+    </div>
+
+  <% end %>
+</section>
+
+<section class="bookmark">
+  <div>
+    <% if current_user.has_queue? %>
+      <h2>Your Custom Homepage Bookmark</h2>
+
+      <p>Please set your link as your web browser homepage:
+      <a href="/bookmark/<%= current_user.username %>">
+        https://<%= env['HTTP_HOST'] %>/bookmark/<%= current_user.username %>
+    </a></p>
+  <% else %>
+    <h2>Default Homepage Bookmark</h2>
+    <p>You don't have any photos in your queue, so we are showing you the link to Photo Vistas default queue.  These photos are great, but if you would like to customize your photo queue, please link an <a href="https://unsplash.com">Unsplash.com</a> account with Photo Vistas.</p>
+
+    <p>Please set the default link as your browser homepage:
+    <a href="/bookmark/default">
+      https://<%= env['HTTP_HOST'] %>/bookmark/default
+    </a>
+    </p>
+  <% end %>
+
+  <p><em>Need help setting your homepage bookmark in your browser?  Check out
+    our <a href="/help">help page</a> for instructions.</em></p>
+  </div>
+</section>
+
+<% if unsplash_user && @unsplash_data.likes %>
+  <section class="unsplash-liked-photos">
+    <h2>Your Unsplash Liked Photos (Total: <%= @unsplash_data.likes_count %>)</h2>
+    <div class="cards">
+      <% @unsplash_data.likes.first(5).each do |photo| %>
+
+        <div class="card">
+          <div class="card-image">
+            <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
+              <img src="<%= photo.thumb_url %>">
+            </a>
+          </div>
+          <div class="card-copy">
+            <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
+              View on Unsplash
+            </a>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="inline-buttons">
+      <a href="https://unsplash.com/@<%= current_user.unsplash_username %>/likes" target="_blank">
+        <button>View All</button>
+      </a>
+      <form action="/queue/<%= current_user.username %>" method="post">
+        <input id="hidden" type="hidden" name="collections" value="liked">
+        <input type="submit" value="Add to Queue">
+      </form>
+    </div>
+  </section>
+<% end %>
+
+<% if unsplash_user && @unsplash_data.collections %>
+  <section class="unsplash-collection-photos">
+    <h2>Your Photo Collections</h2>
+    <% @unsplash_data.collections.each do |collection| %>
+      <h3><%= collection.title %> (Total: <%= collection.count %>)</h3>
+      <div class="cards">
+        <% collection.photos.first(5).each do |photo| %>
+          <div class="card">
+            <div class="card-image">
+              <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
+                <img src="<%= photo.thumb_url %>">
+              </a>
+            </div>
+            <div class="card-copy">
+              <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
+                View on Unsplash
+              </a>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="inline-buttons">
+        <a href="http://unsplash.com/collections/<%= collection.id %>" target="_blank">
+          <button>View All</button>
+        </a>
+
+        <form action="/queue/<%= current_user.username %>" method="post">
+          <input id="hidden" 
+                 type="hidden" 
+                 name="collections" 
+                 value="<%= collection[:id] %>">
+                 <input type="submit" 
+                        value="Add to Queue">
+        </form>
+      </div>
+    <% end %>
+  </section>
+<% end %>
+
+<section class="account-settings">
+  <h2>Account Settings</h2>
+  <div class="photo-vistas-settings">
+    <h3>Photo Vistas Settings</h3>
+    <ul>
+      <li>Username: <%= current_user.username %></li>
+      <li>Email: <%= current_user.email %></li>
+    </ul>
+    <div class="edit-settings-button">
+      <a href="/settings/<%= current_user.username %>/edit">
+        <button>Edit Account Settings</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="unsplash-settings">
+    <% if unsplash_user %>
+      <h3>Your Unsplash Account</h3>
+      <p>Unsplash Username: <%= current_user.unsplash_username %><p>
+      <div class="unsplash-links">
+
+        <p>Unlinking will remove Photo Vistas' access to your Unsplash account.
+        Your photos will remain in your queue, but you won't be able to add
+        additional photos from your account.  Please note, this will not
+        deauthorize Photo Vistas from your Unsplash account, but we won't be
+        able to access your Unsplash account without you relinking.</p>
+
+        <a href="/unsplash/unlink"><button>Unlink</button></a>
+      </div>
+    <% else %>
+      <h3>Link an Unsplash Account</h3>
+      <div class="unsplash-links">
+        <p>Linking an Unsplash account will allow you to add liked photos, photo
+        collections and unloaded photos to your Photo Vistas queue.</p>
+        <a href="/unsplash/auth"><button>Link</button></a>
+      </div>
+    <% end %>
+  </div>
+
+</section>
+</main>

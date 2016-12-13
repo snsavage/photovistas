@@ -1,5 +1,6 @@
 <h2>Edit Your Queue</h2>
 
+<a href="/settings/<%= current_user.username %>">Back to Settings</a>
 <% if @queue %>
   <form action="/queue/<%= current_user.username %>" method="post">
     <input id="hidden" type="hidden" name="_method" value="patch">
