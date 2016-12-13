@@ -40,7 +40,7 @@ main {
   padding: 1em 1em 7em;
 }
 
-.login, .signup {
+.login, .signup, .edit-user {
   section {
     @include span-columns(6);
     @include shift(3);
@@ -48,6 +48,14 @@ main {
 
     h1 {
        font-size: 2em;
+    }
+  }
+}
+
+.edit-user {
+  section {
+    form {
+      margin-top: 1em;
     }
   }
 }

@@ -1,40 +1,41 @@
-<h2>Edit Account Settings</h2>
+<main class="edit-user">
 
-<% if flash[:form_errors] %>
-  <ul>
-    <% flash[:form_errors].each do |error| %>
-      <li>Error: <%= error %></li>
-    <% end %>
-  </ul>
-<% end %>
+<%= erb :flash %>
 
-<form action="/settings/<%= current_user.username %>" method="post">
-  <input id="hidden" type="hidden" name="_method" value="patch">
-  <label>Username: 
-    <input type="text" 
-           id="username" 
-           name="credentials[username]" 
-           value="<%= @user_data[:username]%>">
-  </label>
+<section>
+  <h1>Edit Account Settings</h1>
 
-  <label>Email: 
-    <input type="text" 
-           id="email" 
-           name="credentials[email]" 
-           value="<%= @user_data[:email] %>">
-  </label>
+  <a href="/settings/<%= current_user.username %>">Back to Settings</a>
 
-  <label>Current Password: 
-    <input type="password" id="password" name="current">
-  </label>
+  <form action="/settings/<%= current_user.username %>" method="post">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    <label>Username: 
+      <input type="text" 
+             id="username" 
+             name="credentials[username]" 
+             value="<%= @user_data[:username]%>">
+    </label>
 
-  <label>New Password: 
-    <input type="password" id="new_password" name="credentials[password]">
-  </label>
+    <label>Email: 
+      <input type="text" 
+             id="email" 
+             name="credentials[email]" 
+             value="<%= @user_data[:email] %>">
+    </label>
 
-  <label>Password Confirmation: 
-    <input type="password" id="confirm" name="credentials[password_confirmation]">
-  </label>
+    <label>Current Password: 
+      <input type="password" id="password" name="current">
+    </label>
 
-  <input name="edit" type="submit" value="Save Changes">
-</form>
+    <label>New Password: 
+      <input type="password" id="new_password" name="credentials[password]">
+    </label>
+
+    <label>Password Confirmation: 
+      <input type="password" id="confirm" name="credentials[password_confirmation]">
+    </label>
+
+    <input name="edit" type="submit" value="Save Changes">
+  </form>
+</section>
+</main>
