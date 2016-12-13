@@ -3,7 +3,7 @@ require_relative 'application_controller'
 class UsersController < ApplicationController
   get '/bookmark/:username' do
     @url = current_user.photo_queues.sample.photo.full_url
-    erb :'/users/bookmark'
+    erb :'/users/bookmark', locals: {bookmark: true}
   end
 
   get '/signup' do
