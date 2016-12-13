@@ -4,8 +4,7 @@ feature 'user log in and log out', type: :feature do
 
   scenario 'user can login' do
     user = create(:user)
-    visit '/'
-    click_link 'Log in'
+    visit '/login'
 
     fill_in('Username', with: user.username)
     fill_in('Password', with: user.password)

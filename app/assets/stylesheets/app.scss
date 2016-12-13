@@ -78,6 +78,10 @@ section.flash {
     padding-bottom: 1em;
   }
 
+  section.flash {
+    border: none;
+  }
+
   section:last-child {
     border-bottom: none;
   }

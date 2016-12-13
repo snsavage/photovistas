@@ -12,20 +12,22 @@ feature 'user settings', :feature do
       click_button ('Log in')
 
       expect{
-        click_button ('Add Liked Photos to Queue')
+        within(".unsplash-collection-photos") do
+          click_button('Add to Queue', match: :first)
+        end
       }.to change{user.photo_queues.count}
 
-      click_link('Edit Your Queue')
+      click_link('Open Queue')
 
-      check("queue1")
+      check("queue1", match: :first)
 
       expect{
-        click_button ("Update Queue")
+        click_button("Update Queue", match: :first)
       }.to change{user.photo_queues.count}.by(-1)
 
       expect{
-        click_button ('Add Liked Photos to Queue')
-      }.to change{user.photo_queues.count}.by(1)
+        within(".unsplash-liked-photos") { click_button ('Add to Queue') }
+      }.to change{user.photo_queues.count}
     end
 
     scenario 'shows likes', vcr: vcr_options do
@@ -84,7 +86,7 @@ feature 'user settings', :feature do
       fill_in('password', with: user.password)
       click_button ('Log in')
 
-      expect(page.body).to include("Unlink Unsplash Account")
+      expect(page.body).to include("<button>Unlink</button>")
       expect(page.body).to include("/unsplash/unlink")
     end
 
@@ -95,7 +97,9 @@ feature 'user settings', :feature do
       fill_in('password', with: user.password)
       click_button ('Log in')
 
-      click_button("Add Liked Photos to Queue")
+      within(".unsplash-liked-photos") do
+        click_button("Add to Queue")
+      end
 
       expect(page.body).to include("Your Queue has been updated.")
     end
@@ -107,7 +111,9 @@ feature 'user settings', :feature do
       fill_in('password', with: user.password)
       click_button ('Log in')
 
-      click_button("Add Collection Wildlife to Queue")
+      within(".unsplash-collection-photos") do
+        click_button("Add to Queue", match: :first)
+      end
 
       expect(page.body).to include("Your Queue has been updated.")
     end
@@ -122,7 +128,7 @@ feature 'user settings', :feature do
       click_button ('Log in')
 
 
-      expect(page.body).to include("Photo Vistas Account Settings")
+      expect(page.body).to include("Photo Vistas Settings")
       expect(page.body).to include("Username: #{user.username}")
       expect(page.body).to include("Email: #{user.email}")
       # expect(page.body).to include("Time Zone: #{user.timezone}")
@@ -136,7 +142,7 @@ feature 'user settings', :feature do
       fill_in('password', with: user.password)
       click_button ('Log in')
 
-      expect(page.body).to include("Link Unsplash Account")
+      expect(page.body).to include("Link")
       expect(page.body).to include("/unsplash/auth")
     end
 

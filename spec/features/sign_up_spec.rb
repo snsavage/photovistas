@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'user sign up', type: :feature do
   scenario 'guest user can visit signup page from homepage' do
     visit '/'
-    click_link 'Sign Up'
+    within('footer') { click_link 'Sign up' }
     expect(page.body).to include("Create an Account")
   end
 
@@ -19,7 +19,7 @@ feature 'user sign up', type: :feature do
       fill_in('password', with: user[:password])
       fill_in('confirm', with: user[:password])
       check("unsplash")
-      click_button ('Sign Up')
+      click_button ('Sign up')
 
       fill_in('user_email', with: "effie.fay@okeefe.info")
       fill_in('user_password', with: "omnis79")
@@ -38,10 +38,10 @@ feature 'user sign up', type: :feature do
       fill_in('Email', with: user[:email])
       fill_in('password', with: user[:password])
       fill_in('confirm', with: user[:password])
-      click_button ('Sign Up')
+      click_button ('Sign up')
 
       expect(page.current_path).to include("/settings/#{user[:username]}")
-      expect(page.body).to include("Link Unsplash Account")
+      expect(page.body).to include("Link")
     end
   end
 
@@ -52,9 +52,9 @@ feature 'user sign up', type: :feature do
     fill_in('Email', with: user[:email])
     fill_in('password', with: user[:password])
     fill_in('confirm', with: user[:password])
-    click_button ('Sign Up')
+    click_button ('Sign up')
 
-    expect(page.body).not_to include("Sign Up")
+    expect(page.body).not_to include("Sign up")
     expect(page.body).not_to include("Log in")
     expect(page.body).to include("Log out")
   end
@@ -66,7 +66,7 @@ feature 'user sign up', type: :feature do
     fill_in('Password', with: user.password)
     click_button ('Log in')
 
-    expect(page.body).not_to include("Sign Up")
+    expect(page.body).not_to include("Sign up")
     expect(page.body).not_to include("Log in")
     expect(page.body).to include("Log out")
   end

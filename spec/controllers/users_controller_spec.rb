@@ -115,7 +115,7 @@ describe UsersController do
 
         get "/settings/#{user.username}", {}, 'rack.session' => {user_id: user.id}
 
-        expect(last_response.body).to include("Unlink Unsplash Account")
+        expect(last_response.body).to include("<button>Unlink</button>")
       end
     end
   end
