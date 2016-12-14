@@ -1,9 +1,10 @@
 require_relative 'application_controller'
 
 class UsersController < ApplicationController
-  get '/bookmark/:username' do
-    @photo = current_user.current_photo
+  get '/bookmark/:username' do |username|
+    redirect to "/" if !logged_in? || current_user.username != username
 
+    @photo = current_user.current_photo
     erb :'/users/bookmark', locals: {bookmark: true}
   end
 
