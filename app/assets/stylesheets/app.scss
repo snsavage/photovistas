@@ -135,6 +135,15 @@ section.flash {
 }
 
 .edit-queue {
+  section {
+    border-bottom: 1px solid hsl(0, 0%, 20%);
+    padding-bottom: 1em;
+  }
+
+  section:last-child {
+    border-bottom: none;
+  }
+
   h1 {
     font-size: 2em;
   }
@@ -144,4 +153,22 @@ section.flash {
     padding-right: 3em;
     margin-bottom: 1em;
   }
+
+  .queue-delete-button {
+    padding-left: 1em;
+
+    input, p {
+      display: inline;
+    }
+
+    p {
+      padding-left: 1em;
+    }
+  }
+
+  #delete-queue {
+    background-color: rgb(212, 0, 0);
+  }
 }
+
+

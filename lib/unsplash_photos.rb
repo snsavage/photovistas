@@ -23,7 +23,7 @@ class UnsplashPhotos
       width: photo.width,
       height: photo.height,
       photographer_name: photo.user.name,
-      photographer_link: photo.links.html,
+      photographer_link: photo.user.links.html,
       raw_url: photo.urls.raw,
       full_url: photo.urls.full,
       regular_url: photo.urls.regular,

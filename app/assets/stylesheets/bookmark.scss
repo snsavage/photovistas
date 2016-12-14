@@ -32,7 +32,7 @@ header {
   }
 }
 
-div.bookmark {
+div.background {
   background-color: #333;
   position: fixed;
   height: 100%;
@@ -47,8 +47,22 @@ div.bookmark {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
 
-  h1.attribution {
+div.bookmark {
+  div.search {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    & form, label, input {
+      display: inline-block;
+    }
+  }
+
+  div.attribution {
+    z-index: 10000;
     position: fixed;
     left: 1em;
     bottom: 0;
@@ -57,6 +71,10 @@ div.bookmark {
 
     a {
       color: white;
+
+      &:hover {
+        color: rgb(221, 221, 221);
+      }
     }
   }
 }

@@ -4,7 +4,13 @@ class UsersController < ApplicationController
   get '/bookmark/:username' do |username|
     redirect to "/" if !logged_in? || current_user.username != username
 
-    @photo = current_user.current_photo
+    if current_user.has_queue?
+      @photo = current_user.current_photo
+    else
+      flash[:notice] = ["Your queue is empty.  Please add some photos."]
+      redirect to "/settings/#{current_user.username}"
+    end
+
     erb :'/users/bookmark', locals: {bookmark: true}
   end
 

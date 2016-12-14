@@ -42,8 +42,17 @@
         <input name="update" type="submit" value="Update Queue">
       </div>
     </form>
+</section>
+
+<section>
+  <form class="queue-delete-button" 
+    method="post" action="/queue/<%= current_user.username %>">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Queue" id="delete-queue">
+    <p>Warning!  Delete Queue will remove all photos from you queue.</p>
+  </form>
+</section>
   <% end %>
 
-</section>
 </main>
 
