@@ -7,17 +7,57 @@ footer {
   display: none;
 }
 
+header {
+  nav {
+    opacity: 0;
+    transition: opacity 0.75s ease;
+  }
+
+  &:hover > nav {
+    opacity: 1;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-repeat: no-repeat;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+  }
+
+  nav {
+    max-width: 100%;
+  }
+}
+
 div.bookmark {
+  background-color: #333;
   position: fixed;
   height: 100%;
   width: 100%;
   top: 0;
   left: 0;
   z-index: -1;
-  <%# background: url('<%= image_url %1>') no-repeat center center fixed; %>
+  background-repeat: no-repeat;
+  background-position: center, center;
+  background-attachment: fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+
+  h1.attribution {
+    position: fixed;
+    left: 1em;
+    bottom: 0;
+    color: white;
+    font-weight: normal;
+
+    a {
+      color: white;
+    }
+  }
 }
 

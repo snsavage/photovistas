@@ -5,6 +5,10 @@ class ApplicationController < Sinatra::Base
   helpers SessionHelpers
   helpers UnsplashHelpers
 
+  helpers do
+    include Sprockets::Helpers
+  end
+
   enable :sessions
   set :session_secret, "secret" if !production?
   use Rack::Flash, sweep: true

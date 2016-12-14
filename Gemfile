@@ -16,6 +16,7 @@ gem 'unsplash', git: "https://github.com/snsavage/unsplash_rb.git", branch: "sav
 
 # Assets
 gem 'sprockets'
+gem 'sprockets-helpers'
 gem 'uglifier'
 gem 'sass'
 gem 'bourbon'

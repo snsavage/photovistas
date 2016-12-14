@@ -28,4 +28,8 @@ class User < ActiveRecord::Base
   def has_queue?
     photo_queues.size > 0
   end
+
+  def current_photo
+    @photo ||= photo_queues.sample.photo
+  end
 end

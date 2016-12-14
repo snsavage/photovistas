@@ -1,9 +1,9 @@
-<style type="text/css">
-  div.bookmark {
-    background: url(<%= @url %>) no-repeat center center fixed;
-  }
-</style>
-
-<div class="bookmark">
+<div class="bookmark" style="background-image: url(<%= @photo.full_url %>)">
+<%# <div class="bookmark" style=""> %>
+  <h1 class="attribution">
+    Photo by <a href="<%= @photo.photographer_link %>">
+      <%= @photo.photographer_name %></a> / 
+    <a href="https://unsplash.com">Unsplash</a>
+  </h1>
 </div>
 
