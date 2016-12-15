@@ -25,6 +25,10 @@ gem 'bourbon'
 gem 'neat'
 gem 'bitters'
 
+group :production do
+  gem 'newrelic_rpm'
+end
+
 group :development, :test do
   gem 'dotenv'
   gem 'pry'
