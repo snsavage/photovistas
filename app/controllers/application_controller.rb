@@ -11,7 +11,7 @@ class ApplicationController < Sinatra::Base
   helpers Sprockets::Helpers
 
   enable :sessions
-  set :session_secret, "secret" if !production?
+  set :session_secret, ENV['SESSION_SECRET']
   use Rack::Flash, sweep: true
 
   configure do
