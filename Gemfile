@@ -14,6 +14,7 @@ gem "rack-flash3", :require => "rack-flash"
 # gem "sinatra-flash"
 # gem 'unsplash', '~>1.4'
 gem 'unsplash', git: "https://github.com/snsavage/unsplash_rb.git", branch: "savage"
+gem 'sinatra-strong-params', :require => 'sinatra/strong-params'
 
 # Assets
 gem 'sprockets'
