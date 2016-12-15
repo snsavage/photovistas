@@ -1,0 +1,30 @@
+<main class="contact">
+
+<%= erb :flash %>
+
+<section>
+  <h1>Contact Photo Vistas</h1>
+  <form name="contact" method="post" action="https://formspree.io/9N242k@snsavage.com">
+    <div class="form-div">
+      <label>Name
+      <input class="form-fields" type="text" name="name"></label>
+    </div>
+    <div class="form-div">
+      <label>Email
+      <input class="form-fields" type="email" name="email"></label>
+    </div>
+    <div class="form-div">
+      <label>Message
+      <textarea class="form-fields" name="message" rows="5"></textarea></label>
+    </div>
+    <div class="form-div">
+      <button>Send Message</button>
+      <p class="hidden">
+      <input type="hidden" name="_next" value="//photovistas.com" />
+      <input type="hidden" name="_subject" value="Message from PhotoVistas.com" />
+      <input type="text" name="_gotcha" />
+      </p>
+    </div>
+  </form>
+</section>
+</main>

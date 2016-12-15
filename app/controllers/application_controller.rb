@@ -26,5 +26,9 @@ class ApplicationController < Sinatra::Base
   get '/' do
     erb :index, locals: {clear: true}
   end
+
+  get '/contact' do
+    erb :contact
+  end
 end
 

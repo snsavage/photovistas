@@ -46,7 +46,7 @@ section.flash {
   @include shift(3);
 }
 
-.login, .signup, .edit-user {
+.login, .signup, .edit-user, .contact {
   section {
     @include span-columns(6);
     @include shift(3);
@@ -55,6 +55,12 @@ section.flash {
     h1 {
        font-size: 2em;
     }
+  }
+}
+
+.contact {
+  .hidden {
+    display: none;
   }
 }
 
