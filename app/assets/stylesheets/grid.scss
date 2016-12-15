@@ -83,12 +83,18 @@
     }
   }
 
-  @mixin background-image($url) {
-    background: url($url);
-    background-color: $grid-item-background;
+  .grid-item-image {
+    background: unset;
+    padding: 0;
+  }
+
+  .grid-item-image div {
+    // background-color: $grid-item-background;
+    width: 100%;
+    height: 100%;
     background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
-    // border: 1px solid $dark-gray;
+    border: 1px solid $dark-gray;
   }
 }
