@@ -57,6 +57,17 @@ describe UsersController do
       end
     end
 
+    context 'with invalid params' do
+      let(:params) { {credentials: attributes_for(:user) } }
+
+      it 'ignores the invalid params' do
+        params[:credentials][:unsplash_username] = "invalid"
+        post '/signup', params
+
+        expect(User.first.unsplash_username).to be nil
+      end
+    end
+
     context 'with invalid input' do
       it 'renders view signup/new' do
         post '/signup'
