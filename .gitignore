@@ -11,4 +11,5 @@
 /.env
 /spec/*.json
 /public/assets
+/log/
 
