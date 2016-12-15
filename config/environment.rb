@@ -8,6 +8,8 @@ Dotenv.load if ENV['RACK_ENV'] != "production"
 require_rel "../app/"
 require_rel "../lib/"
 
+GC::Profiler.enable
+
 Unsplash.configure do |config|
   config.application_id = ENV['UNSPLASH_ID']
   config.application_secret = ENV['UNSPLASH_SECRET']
