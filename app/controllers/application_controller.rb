@@ -30,5 +30,9 @@ class ApplicationController < Sinatra::Base
   get '/contact' do
     erb :contact
   end
+
+  get '/help' do
+    erb :help
+  end
 end
 

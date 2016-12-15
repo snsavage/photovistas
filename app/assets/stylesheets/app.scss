@@ -46,7 +46,7 @@ section.flash {
   @include shift(3);
 }
 
-.login, .signup, .edit-user, .contact {
+.login, .signup, .edit-user, .contact, .help {
   section {
     @include span-columns(6);
     @include shift(3);
@@ -183,3 +183,9 @@ sup {
   font-size: 50%;
 }
 
+.help {
+  ul {
+    margin-bottom: 1em;
+    list-style: disc inside none;
+  }
+}
