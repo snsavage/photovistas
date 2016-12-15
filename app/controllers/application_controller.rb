@@ -1,13 +1,14 @@
 require 'sinatra/base'
+require 'sinatra/asset_pipeline'
 
 class ApplicationController < Sinatra::Base
+  set :assets_paths, %w(./../assets/stylesheets ./../assets/images)
+  set :assets_precompile, %w(app.js app.css bookmark.css clear.css *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2)
+  register Sinatra::AssetPipeline
 
   helpers SessionHelpers
   helpers UnsplashHelpers
-
-  helpers do
-    include Sprockets::Helpers
-  end
+  helpers Sprockets::Helpers
 
   enable :sessions
   set :session_secret, "secret" if !production?

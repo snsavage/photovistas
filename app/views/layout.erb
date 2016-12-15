@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/assets/app.css">
+    <link rel="stylesheet" href="<%= stylesheet_path 'app' %>">
     <% if clear ||= nil %>
-      <link rel="stylesheet" href="/assets/clear.css">
+      <link rel="stylesheet" href="<%= stylesheet_path 'clear' %>">
     <% elsif bookmark ||= nil %>
-      <link rel="stylesheet" href="/assets/bookmark.css">
+      <link rel="stylesheet" href="<%= stylesheet_path 'bookmark' %>">
     <% end %>
     <title>Photo Vistas</title>
   </head>

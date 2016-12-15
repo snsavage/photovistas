@@ -1,6 +1,7 @@
 ENV["RACK_ENV"] ||= "development"
 
 require 'sinatra/activerecord/rake'
+require 'sinatra/asset_pipeline/task'
 require_relative './config/environment'
 
 # Type `rake -T` on your command line to see the available rake tasks.
@@ -52,5 +53,5 @@ namespace :unsplash do
   end
 end
 
-
+Sinatra::AssetPipeline::Task.define! ApplicationController
 

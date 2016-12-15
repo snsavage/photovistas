@@ -91,12 +91,4 @@
     background-size: cover;
     // border: 1px solid $dark-gray;
   }
-
-  .unsplash-background {
-    @include background-image("/assets/unsplash.png");
-  }
-
-  .photo-vistas-background {
-    @include background-image("/assets/photo-vistas.png");
-  }
 }
