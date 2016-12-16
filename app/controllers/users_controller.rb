@@ -22,7 +22,13 @@ class UsersController < ApplicationController
   post '/signup' do
     redirect to "/" if logged_in?
 
-    user = User.create(params[:credentials])
+    credentials = filter_params(
+      params[:credentials],
+      %w(username email password password_confirmation)
+    )
+
+    user = User.create(credentials)
+
     if user.valid?
       session[:user_id] = user.id
       redirect to "/unsplash/auth" if params[:unsplash]
@@ -61,7 +67,12 @@ class UsersController < ApplicationController
       halt erb(:'/users/edit')
     end
 
-    current_user.update(params[:credentials])
+    credentials = filter_params(
+      params[:credentials],
+      %w(username email password password_confirmation)
+    )
+
+    current_user.update(credentials)
     if current_user.valid?
       redirect to "/settings/#{current_user.username}"
     else

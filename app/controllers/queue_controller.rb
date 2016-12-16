@@ -31,9 +31,12 @@ class QueueController < ApplicationController
     redirect to "/" if !logged_in? || current_user.username != username
 
     if params[:queue]
-      queues = PhotoQueue.find(params[:queue])
-      current_user.photo_queues.destroy(queues)
+      begin
+        queues = current_user.photo_queues.find(params[:queue])
+        current_user.photo_queues.destroy(queues)
+      rescue
 
+      end
       flash[:notice] = ["Your Queue has been updated."]
     end
 

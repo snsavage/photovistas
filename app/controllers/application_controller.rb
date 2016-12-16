@@ -4,10 +4,12 @@ require 'sinatra/asset_pipeline'
 class ApplicationController < Sinatra::Base
   set :assets_paths, %w(./../assets/stylesheets ./../assets/images)
   set :assets_precompile, %w(app.js app.css bookmark.css clear.css *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2)
+
   register Sinatra::AssetPipeline
 
   helpers SessionHelpers
   helpers UnsplashHelpers
+  helpers ParamHelpers
   helpers Sprockets::Helpers
 
   enable :sessions

@@ -61,6 +61,25 @@ describe QueueController do
       end
     end
 
+    context 'if a photo queue not belonging to a user is given' do
+      it 'does not remove the photo queue' do
+        user = create(:user_with_unsplash)
+        malicious = create(:user)
+
+        2.times { user.photos.create(attributes_for(:photo)) }
+
+        expect{
+          patch(
+            "/queue/#{malicious.username}",
+            {queue: [] << user.photo_queues.first.id},
+              'rack.session' => {user_id: malicious.id}
+          )
+        }.not_to change{user.photo_queues.count}
+
+        expect(last_response.status).to eq(302)
+      end
+    end
+
     context 'when no queues are selected' do
       it 'redirects to /settings/:username' do
         user = create(:user_with_unsplash)
