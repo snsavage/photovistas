@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :photo_queues
   has_many :photos, through: :photo_queues
 
+  validates :username, exclusion: {in: ["default"]}
   validates :username, :email, presence: true
   validates :username, :email, uniqueness: true
   validates :username, format: { with: /\A[a-zA-Z0-9]+\z/,
@@ -31,5 +32,9 @@ class User < ActiveRecord::Base
 
   def current_photo
     @photo ||= photo_queues.sample.photo
+  end
+
+  def self.default
+    User.where(default: true).first
   end
 end

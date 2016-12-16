@@ -29,6 +29,32 @@ namespace :db do
   end
 end
 
+namespace :default do
+  desc "Change user to default queue"
+  task :change do
+    puts "Please provide a username to set as default queue..."
+    username = STDIN.gets.chomp
+
+    default = User.where(default: true).first
+    user = User.find_by(username: username)
+
+    if default && user
+      if default.username == user.username
+        puts "Error: #{username} is already set as default."
+      else
+        default.update(default: false)
+        user.update(default: true)
+        puts "Success: #{default.username} removed and #{user.username} set as default."
+      end
+    elsif user
+      user.update(default: true)
+      puts "Success: #{user.username} set as default, no previous user set."
+    else
+      puts "Error: username is not a valid user."
+    end
+  end
+end
+
 namespace :unsplash do
   desc "Generate Unsplash access token json file"
   task :token do

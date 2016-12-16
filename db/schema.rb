@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161215164816) do
+ActiveRecord::Schema.define(version: 20161216172526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,11 +50,12 @@ ActiveRecord::Schema.define(version: 20161215164816) do
     t.string   "username"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "unsplash_username"
     t.text     "unsplash_token"
     t.integer  "photos_count"
+    t.boolean  "default",           default: false
     t.index ["username"], name: "index_users_on_username", using: :btree
   end
 

@@ -168,7 +168,23 @@ feature 'user settings', :feature do
     end
 
     scenario 'user has access to the default photo queue' do
-      skip
+      user = create(:user)
+
+      default = create(:user)
+      default.update(default: true)
+      default.photos = [create(:photo)]
+
+      visit '/login'
+      fill_in('username', with: user.username)
+      fill_in('password', with: user.password)
+      click_button ('Log in')
+
+      expect(page.body).to include("Default Homepage Bookmark")
+      expect(page.body).to include("/bookmark/default")
+
+      visit '/bookmark/default'
+
+      expect(page.current_path).to eq("/bookmark/default")
     end
 
     scenario 'user has a time zone' do
