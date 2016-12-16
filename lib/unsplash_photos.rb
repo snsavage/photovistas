@@ -2,14 +2,18 @@ class UnsplashPhotos
   attr_accessor :user
 
   def initialize(unsplash_user: nil, collection_id: nil)
-    @user = unsplash_user
+    @unsplash_user = unsplash_user
     @liked = nil
     @collection_id = collection_id
     @collection = nil
   end
 
+  def user
+    @user ||= @unsplash_user.current
+  end
+
   def liked
-    @liked ||= get_photos(:unsplash_likes) if @user
+    @liked ||= get_photos(:unsplash_likes) if user
   end
 
   def collection
@@ -49,7 +53,7 @@ class UnsplashPhotos
 
   def unsplash_likes(page)
     begin
-      @user.likes(page, 30)
+      user.likes(page, 30)
     rescue
       []
     end

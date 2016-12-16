@@ -5,8 +5,12 @@ class UnsplashSettings
   attr_reader :user, :api_count
 
   def initialize(unsplash_user = nil)
-    @user = unsplash_user
+    @unsplash_user = unsplash_user
     @api_count = 0
+  end
+
+  def user
+    @user ||= @unsplash_user.current
   end
 
   def refresh
