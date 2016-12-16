@@ -7,10 +7,25 @@ class UnsplashSettings
   def initialize(unsplash_user = nil)
     @unsplash_user = unsplash_user
     @api_count = 0
+    @error = false
   end
 
   def user
-    @user ||= @unsplash_user.current
+    begin
+      raise if unavailable?
+      @user ||= @unsplash_user.current
+    rescue
+      @error = true
+      nil
+    end
+  end
+
+  def available?
+    !@error
+  end
+
+  def unavailable?
+    @error
   end
 
   def refresh
@@ -34,13 +49,25 @@ class UnsplashSettings
 
   private
   def user_api_call(endpoint)
-    @api_count += 1
-    user.send(endpoint)
+    begin
+      raise if unavailable?
+      @api_count += 1
+      user.send(endpoint)
+    rescue
+      @error = true
+      []
+    end
   end
 
   def collection_api_call(collection, endpoint)
-    @api_count += 1
-    collection.send(endpoint)
+    begin
+      raise if unavailable?
+      @api_count += 1
+      collection.send(endpoint)
+    rescue
+      @error = true
+      []
+    end
   end
 
   def get_likes

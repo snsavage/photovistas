@@ -4,7 +4,7 @@ vcr_options = {record: :once}
 
 feature 'user settings', :feature do
   context 'with an unsplash usersname' do
-    scenario 'manage queue', vcr: {record: :new_episodes} do
+    scenario 'manage queue', vcr: {record: :once} do
       user = create(:user_with_unsplash)
       visit '/login'
       fill_in('username', with: user.username)
@@ -104,7 +104,7 @@ feature 'user settings', :feature do
       expect(page.body).to include("Your Queue has been updated.")
     end
 
-    scenario 'user can add a collection to queue', vcr: {record: :new_episodes} do
+    scenario 'user can add a collection to queue', vcr: {record: :once} do
       user = create(:user_with_unsplash)
       visit '/login'
       fill_in('username', with: user.username)

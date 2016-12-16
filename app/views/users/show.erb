@@ -65,46 +65,21 @@
   </div>
 </section>
 
-<% if unsplash_user && @unsplash_data.likes %>
-  <section class="unsplash-liked-photos">
-    <h2>Your Unsplash Liked Photos (Total: <%= @unsplash_data.likes_count %>)</h2>
-    <div class="cards">
-      <% @unsplash_data.likes.first(5).each do |photo| %>
-
-        <div class="card">
-          <div class="card-image">
-            <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
-              <img src="<%= photo.thumb_url %>">
-            </a>
-          </div>
-          <div class="card-copy">
-            <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
-              View on Unsplash
-            </a>
-          </div>
-        </div>
-      <% end %>
-    </div>
-
-    <div class="inline-buttons">
-      <a href="https://unsplash.com/@<%= current_user.unsplash_username %>/likes" target="_blank">
-        <button>View All</button>
-      </a>
-      <form action="/queue/<%= current_user.username %>" method="post">
-        <input id="hidden" type="hidden" name="collections" value="liked">
-        <input type="submit" value="Add to Queue">
-      </form>
-    </div>
+<% if unsplash_user && @unsplash_data.unavailable? %>
+  <section>
+    <section class="flash">
+      <div class="flash flash-error">
+        Unsplash is currently unavailable, please try back in a few minutes.
+      </div>
+    </section>
   </section>
-<% end %>
-
-<% if unsplash_user && @unsplash_data.collections %>
-  <section class="unsplash-collection-photos">
-    <h2>Your Photo Collections</h2>
-    <% @unsplash_data.collections.each do |collection| %>
-      <h3><%= collection.title %> (Total: <%= collection.count %>)</h3>
+<% else %>
+  <% if unsplash_user && @unsplash_data.likes %>
+    <section class="unsplash-liked-photos">
+      <h2>Your Unsplash Liked Photos (Total: <%= @unsplash_data.likes_count %>)</h2>
       <div class="cards">
-        <% collection.photos.first(5).each do |photo| %>
+        <% @unsplash_data.likes.first(5).each do |photo| %>
+
           <div class="card">
             <div class="card-image">
               <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
@@ -121,21 +96,57 @@
       </div>
 
       <div class="inline-buttons">
-        <a href="http://unsplash.com/collections/<%= collection.id %>" target="_blank">
+        <a href="https://unsplash.com/@<%= current_user.unsplash_username %>/likes" target="_blank">
           <button>View All</button>
         </a>
-
         <form action="/queue/<%= current_user.username %>" method="post">
-          <input id="hidden" 
-                 type="hidden" 
-                 name="collections" 
-                 value="<%= collection[:id] %>">
-                 <input type="submit" 
-                        value="Add to Queue">
+          <input id="hidden" type="hidden" name="collections" value="liked">
+          <input type="submit" value="Add to Queue">
         </form>
       </div>
-    <% end %>
-  </section>
+    </section>
+  <% end %>
+
+  <% if unsplash_user && @unsplash_data.collections %>
+    <section class="unsplash-collection-photos">
+      <h2>Your Photo Collections</h2>
+      <% @unsplash_data.collections.each do |collection| %>
+        <h3><%= collection.title %> (Total: <%= collection.count %>)</h3>
+        <div class="cards">
+          <% collection.photos.first(5).each do |photo| %>
+            <div class="card">
+              <div class="card-image">
+                <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
+                  <img src="<%= photo.thumb_url %>">
+                </a>
+              </div>
+              <div class="card-copy">
+                <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
+                  View on Unsplash
+                </a>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="inline-buttons">
+          <a href="http://unsplash.com/collections/<%= collection.id %>" target="_blank">
+            <button>View All</button>
+          </a>
+
+          <form action="/queue/<%= current_user.username %>" method="post">
+            <input id="hidden" 
+                   type="hidden" 
+                   name="collections" 
+                   value="<%= collection[:id] %>">
+                   <input type="submit" 
+                          value="Add to Queue">
+          </form>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
+
 <% end %>
 
 <section class="account-settings">
