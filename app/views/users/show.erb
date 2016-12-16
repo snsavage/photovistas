@@ -20,6 +20,12 @@
                 <img src="<%= photo.thumb_url %>">
               </a>
             </div>
+            <div class="card-header">
+              Photo by<br>
+              <a href="<%= photo.photographer_link %>" target="_blank">
+                <%= photo.photographer_name %>
+              </a>
+            </div>
             <div class="card-copy">
               <a href="https://unsplash.com/?photo=<%= photo.unsplash_id %>" target="_blank">
                 View on Unsplash
@@ -86,6 +92,12 @@
                 <img src="<%= photo.thumb_url %>">
               </a>
             </div>
+            <div class="card-header">
+              Photo by<br>
+              <a href="<%= photo.link %>" target="_blank">
+                <%= photo.photographer %>
+              </a>
+            </div>
             <div class="card-copy">
               <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
                 View on Unsplash
@@ -118,6 +130,12 @@
               <div class="card-image">
                 <a href="https://unsplash.com/?photo=<%= photo.id %>" target="_blank">
                   <img src="<%= photo.thumb_url %>">
+                </a>
+              </div>
+              <div class="card-header">
+                Photo by<br>
+                <a href="<%= photo.link %>" target="_blank">
+                  <%= photo.photographer %>
                 </a>
               </div>
               <div class="card-copy">

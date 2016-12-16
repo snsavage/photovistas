@@ -8,28 +8,28 @@ feature 'user sign up', type: :feature do
   end
 
   feature 'new user signup' do
-    scenario 'with an unsplash account' do
-      skip "This test requires the development server to be running."
-      Capybara.current_driver = :selenium
+    # scenario 'with an unsplash account' do
+    #   skip "This test requires the development server to be running."
+    #   Capybara.current_driver = :selenium
 
-      user = attributes_for(:user_with_unsplash)
-      visit '/signup'
-      fill_in('username', with: user[:username])
-      fill_in('email', with: user[:email])
-      fill_in('password', with: user[:password])
-      fill_in('confirm', with: user[:password])
-      check("unsplash")
-      click_button ('Sign up')
+    #   user = attributes_for(:user_with_unsplash)
+    #   visit '/signup'
+    #   fill_in('username', with: user[:username])
+    #   fill_in('email', with: user[:email])
+    #   fill_in('password', with: user[:password])
+    #   fill_in('confirm', with: user[:password])
+    #   check("unsplash")
+    #   click_button ('Sign up')
 
-      fill_in('user_email', with: "effie.fay@okeefe.info")
-      fill_in('user_password', with: "omnis79")
-      click_button ('Login')
+    #   fill_in('user_email', with: "effie.fay@okeefe.info")
+    #   fill_in('user_password', with: "omnis79")
+    #   click_button ('Login')
 
-      # Only needed if test user has been used before.
-      # click_button ('Authorize')
+    #   # Only needed if test user has been used before.
+    #   # click_button ('Authorize')
 
-      expect(page.current_url).to include("/unsplash/callback?code=")
-    end
+    #   expect(page.current_url).to include("/unsplash/callback?code=")
+    # end
 
     scenario 'without an unsplash account' do
       user = attributes_for(:user)

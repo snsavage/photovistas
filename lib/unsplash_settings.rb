@@ -1,5 +1,5 @@
 class UnsplashSettings
-  PhotoData = Struct.new(:id, :thumb_url)
+  PhotoData = Struct.new(:id, :thumb_url, :photographer, :link)
   CollectionData = Struct.new(:id, :title, :count, :photos)
 
   attr_reader :user, :api_count
@@ -72,14 +72,20 @@ class UnsplashSettings
 
   def get_likes
     user_api_call(:likes).map do |photo|
-      PhotoData.new(photo.id, photo.urls.thumb)
+      PhotoData.new(photo.id,
+                    photo.urls.thumb,
+                    photo.user.name,
+                    photo.user.links.html)
     end
   end
 
   def get_collections
     user_api_call(:collections).map do |collection|
       photos = collection_api_call(collection, :photos).map do |photo|
-        PhotoData.new(photo.id, photo.urls.thumb)
+      PhotoData.new(photo.id,
+                    photo.urls.thumb,
+                    photo.user.name,
+                    photo.user.links.html)
       end
 
       CollectionData.new(collection.id,

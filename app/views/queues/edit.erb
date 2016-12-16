@@ -24,10 +24,18 @@
                 <img src="<%= queue.photo.thumb_url %>">
               </a>
             </div>
+            <div class="card-header">
+              Photo by<br>
+              <a href="<%= queue.photo.photographer_link %>" target="_blank">
+                <%= queue.photo.photographer_name %>
+              </a>
+            </div>
             <div class="card-copy">
               <a href="https://unsplash.com/?photo=<%= queue.photo.unsplash_id %>" target="_blank">
                 View on Unsplash
               </a>
+            </div>
+            <div class="card-copy remove">
               <label>
                 <input type="checkbox" id="queue<%= queue.id %>" 
                                        name="queue[]" value="<%= queue.id %>">

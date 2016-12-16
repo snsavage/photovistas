@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe UnsplashController do
-  describe 'unsplash access token' do
-    it 'regenerates a token with access to current user' do
-      skip "Only use when testing extract process"
-      unsplash_token_setup
+  # describe 'unsplash access token' do
+  #   it 'regenerates a token with access to current user' do
+  #     skip "Only use when testing extract process"
+  #     unsplash_token_setup
 
-      expect{Unsplash::User.current[:username]}.not_to raise_error
-    end
-  end
+  #     expect{Unsplash::User.current[:username]}.not_to raise_error
+  #   end
+  # end
 
   describe 'GET /unsplash/callback' do
     it 'redirects to /settings/:username' do
