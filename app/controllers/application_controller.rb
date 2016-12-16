@@ -12,6 +12,12 @@ class ApplicationController < Sinatra::Base
   helpers ParamHelpers
   helpers Sprockets::Helpers
 
+  helpers do
+    def h(text)
+      Rack::Utils.escape_html(text)
+    end
+  end
+
   enable :sessions
   set :session_secret, ENV['SESSION_SECRET']
   use Rack::Flash, sweep: true

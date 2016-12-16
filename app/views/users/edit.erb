@@ -13,14 +13,14 @@
       <input type="text" 
              id="username" 
              name="credentials[username]" 
-             value="<%= @user_data[:username]%>">
+             value="<%= h @user_data[:username]%>">
     </label>
 
     <label>Email: 
       <input type="text" 
              id="email" 
              name="credentials[email]" 
-             value="<%= @user_data[:email] %>">
+             value="<%= h @user_data[:email] %>">
     </label>
 
     <label>Current Password: 

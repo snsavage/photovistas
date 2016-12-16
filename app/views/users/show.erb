@@ -172,8 +172,8 @@
   <div class="photo-vistas-settings">
     <h3>Photo Vistas Settings</h3>
     <ul>
-      <li>Username: <%= current_user.username %></li>
-      <li>Email: <%= current_user.email %></li>
+      <li>Username: <%= h current_user.username %></li>
+      <li>Email: <%= h current_user.email %></li>
     </ul>
     <div class="edit-settings-button">
       <a href="/settings/<%= current_user.username %>/edit">
