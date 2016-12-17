@@ -1,6 +1,92 @@
 require 'spec_helper'
 
 describe User do
+  describe '#current_photo' do
+    it 'finds a photo_queue without a last_viewed date' do
+      Timecop.freeze(Date.today)
+
+      user = create(:user)
+      2.times do
+        user.photos << create(:photo)
+      end
+
+      expect{Timecop.freeze(Date.tomorrow)}.to change{user.current_photo.id}
+    end
+
+    it "adds today's date to the photo queue last_viewed" do
+      Timecop.freeze(Date.today)
+
+      user = create(:user)
+      2.times do
+        user.photos << create(:photo)
+      end
+
+      photo = user.current_photo
+
+      expect(
+        user.photo_queues.find_by(photo_id: photo.id).last_viewed
+      ).to eq(Date.today)
+    end
+
+    context 'when a photo_queue has already been set for today' do
+      it 'finds todays photo queue' do
+        Timecop.freeze(Date.today)
+
+        user = create(:user)
+        2.times do
+          user.photos << create(:photo)
+        end
+
+        todays_photo = user.current_photo
+        second_request = User.find(user.id)
+
+        expect(todays_photo.id).to eq(second_request.current_photo.id)
+      end
+    end
+
+    context "when all photo_queues have a last_viewed date" do
+      it 'no queues will have a null last_viewed date' do
+        Timecop.freeze(Date.today)
+
+        user = create(:user)
+        2.times do
+          user.photos << create(:photo)
+        end
+
+        todays_photo = user.current_photo
+
+        Timecop.freeze(Date.tomorrow)
+        tomorrows_photo = user.current_photo
+
+        expect(user.photo_queues.where("last_viewed IS NULL").count).to eq(0)
+      end
+
+      it 'finds the oldest last_viewed queue' do
+        Timecop.freeze(Date.today)
+
+        user = create(:user)
+
+        2.times do
+          user.photos << create(:photo)
+        end
+
+        todays_photo = user.current_photo
+
+        Timecop.freeze(Date.tomorrow)
+        user = User.find(user.id)
+        tomorrows_photo = user.current_photo
+
+        Timecop.freeze(Date.tomorrow)
+        user = User.find(user.id)
+        expect(user.current_photo.id).to eq(todays_photo.id)
+
+        Timecop.freeze(Date.tomorrow)
+        user = User.find(user.id)
+        expect(user.current_photo.id).to eq(tomorrows_photo.id)
+      end
+    end
+  end
+
   describe '#add_photos_to_queue' do
     it 'does not add nil records' do
       user = create(:user)

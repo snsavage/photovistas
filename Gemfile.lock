@@ -164,6 +164,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.5)
     tilt (2.0.5)
+    timecop (0.8.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.2)
@@ -209,6 +210,7 @@ DEPENDENCIES
   sinatra-asset-pipeline (~> 1.0)
   sprockets
   sprockets-helpers
+  timecop
   uglifier
   unsplash!
   vcr

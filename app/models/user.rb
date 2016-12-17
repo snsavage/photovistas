@@ -31,7 +31,26 @@ class User < ActiveRecord::Base
   end
 
   def current_photo
-    @photo ||= photo_queues.sample.photo
+    queue = current_queue(Date.today).or(null_queue).limit(1).first
+
+    if !queue
+      queue = oldest_queue.first
+    end
+
+    queue.update(last_viewed: Date.today)
+    return queue.photo
+  end
+
+  def current_queue(date)
+    photo_queues.where(last_viewed: date)
+  end
+
+  def null_queue
+    photo_queues.where("last_viewed IS NULL")
+  end
+
+  def oldest_queue
+    photo_queues.order(last_viewed: :asc)
   end
 
   def self.default

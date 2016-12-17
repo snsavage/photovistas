@@ -49,5 +49,6 @@ group :test do
   gem 'fuubar'
   gem 'webmock'
   gem 'vcr'
+  gem 'timecop'
 end
 
