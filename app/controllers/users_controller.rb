@@ -77,7 +77,7 @@ class UsersController < ApplicationController
 
     credentials = filter_params(
       params[:credentials],
-      %w(username email password password_confirmation)
+      %w(username email password password_confirmation time_zone)
     )
 
     current_user.update(credentials)

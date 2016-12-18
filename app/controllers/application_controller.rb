@@ -10,6 +10,7 @@ class ApplicationController < Sinatra::Base
   helpers SessionHelpers
   helpers UnsplashHelpers
   helpers ParamHelpers
+  helpers TimeZoneHelpers
   helpers Sprockets::Helpers
 
   helpers do
