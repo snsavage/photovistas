@@ -174,7 +174,7 @@
     <ul>
       <li>Username: <%= h current_user.username %></li>
       <li>Email: <%= h current_user.email %></li>
-      <li>Time Zone: <%= h current_user.time_zone %></li>
+      <li>Time Zone: <%= h tz_display(current_user.time_zone) %></li>
     </ul>
     <div class="edit-settings-button">
       <a href="/settings/<%= current_user.username %>/edit">

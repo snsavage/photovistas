@@ -183,6 +183,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  activesupport
   bcrypt
   bitters
   bourbon

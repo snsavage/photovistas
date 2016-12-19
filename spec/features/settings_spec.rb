@@ -186,10 +186,6 @@ feature 'user settings', :feature do
 
       expect(page.current_path).to eq("/bookmark/default")
     end
-
-    scenario 'user has a time zone' do
-      skip
-    end
   end
 end
 

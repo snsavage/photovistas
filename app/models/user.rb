@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   validates :username, length: { in: 2..25 }
   validates :password, length: { in: 8..48 }, allow_nil: true
 
+  validates :time_zone, inclusion: {in: ActiveSupport::TimeZone.all.map(&:name)}
+
   serialize :unsplash_token
 
   def add_photos_to_queue(photos_to_add)
@@ -31,14 +33,18 @@ class User < ActiveRecord::Base
   end
 
   def current_photo
-    queue = current_queue(Date.today).or(null_queue).limit(1).first
+    Time.use_zone(time_zone) do
+      tz_date = Time.current.to_date
 
-    if !queue
-      queue = oldest_queue.first
+      queue = current_queue(tz_date).or(null_queue).limit(1).first
+
+      if !queue
+        queue = oldest_queue.first
+      end
+
+      queue.update(last_viewed: tz_date)
+      return queue.photo
     end
-
-    queue.update(last_viewed: Date.today)
-    return queue.photo
   end
 
   def current_queue(date)

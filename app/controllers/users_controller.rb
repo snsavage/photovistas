@@ -50,7 +50,12 @@ class UsersController < ApplicationController
 
   get '/settings/:username/edit' do |username|
     if logged_in? && current_user.username == username
-      @user_data = {username: current_user.username, email: current_user.email}
+      @user_data = {
+        username: current_user.username,
+        email: current_user.email,
+        time_zone: current_user.time_zone
+      }
+
       erb :'/users/edit'
     else
       redirect to "/"
@@ -62,7 +67,8 @@ class UsersController < ApplicationController
 
     @user_data = {
       username: params[:credentials][:username],
-      email: params[:credentials][:email]
+      email: params[:credentials][:email],
+      time_zone: params[:credentials][:time_zone]
     }
 
     if params[:credentials][:password] &&
