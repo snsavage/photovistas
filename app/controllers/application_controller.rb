@@ -19,8 +19,12 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  enable :sessions
-  set :session_secret, ENV['SESSION_SECRET']
+  use Rack::Session::Cookie, :key => 'rack.session',
+    :domain => 'photovistas.com',
+    :path => '/',
+    :expire_after => 2592000, # In seconds
+    :secret => ENV['SESSION_SECRET']
+
   use Rack::Flash, sweep: true
 
   configure do
