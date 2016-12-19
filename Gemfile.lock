@@ -10,6 +10,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    actionpack (1.4.0)
     activemodel (5.0.0.1)
       activesupport (= 5.0.0.1)
     activerecord (5.0.0.1)
@@ -113,6 +114,9 @@ GEM
     rack (1.6.5)
     rack-flash3 (1.0.5)
       rack
+    rack-google-analytics (1.2.0)
+      actionpack
+      activesupport
     rack-protection (1.5.3)
       rack
     rack-ssl (1.4.1)
@@ -202,6 +206,7 @@ DEPENDENCIES
   pry
   puma
   rack-flash3
+  rack-google-analytics
   rack-ssl
   rack-test
   rake

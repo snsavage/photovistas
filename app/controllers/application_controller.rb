@@ -28,6 +28,7 @@ class ApplicationController < Sinatra::Base
       :secret => ENV['SESSION_SECRET']
 
     use Rack::SSL
+    use Rack::GoogleAnalytics, :tracker => ENV['GOOGLE_ANALYTICS']
   end
 
   if !production?

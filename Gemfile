@@ -29,6 +29,7 @@ gem 'bitters'
 
 group :production do
   gem 'newrelic_rpm'
+  gem 'rack-google-analytics'
 end
 
 group :development do
