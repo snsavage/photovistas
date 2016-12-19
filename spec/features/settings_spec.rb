@@ -38,15 +38,17 @@ feature 'user settings', :feature do
       click_button ('Log in')
 
       Unsplash::Client.connection.create_and_assign_token(user.unsplash_token)
-      all_likes = Unsplash::User.current.likes
 
+      all_likes = Unsplash::User.current.likes
       links = all_likes.first(2).map do |like|
         {id: like.urls.raw, thumb: like.urls.thumb}
       end
 
-      username = Unsplash::User.current.username
+      unsplash_user = Unsplash::User.current
+      likes = unsplash_user.total_likes
+      username = unsplash_user.username
 
-      expect(page.body).to include("Total: #{all_likes.count}")
+      expect(page.body).to include("Total: #{likes}")
       expect(page.body).to include(links[0][:id])
       expect(page.body).to include(links[1][:id])
       expect(page.body).to include(links[0][:thumb])
