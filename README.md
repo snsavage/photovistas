@@ -36,6 +36,7 @@ UNSPLASH_REDIRECT_URI		# Available from the Unsplash API.  See below.
 UNSPLASH_TEST_USERNAME		# Unsplash account for testing. See `Testing` below.
 NEW_RELIC						# Available from New Relic.
 ```
+
 In production a Google Analytics code should be set as ```GOOGLE_ANALYTICS```.  Also, Photo Vistas uses the Puma web server so ```MAX_THREADS``` and ```WEB_CONCURRENCY``` variables should be set to fit your production environment.
 
 Finally, Photo Vistas provides a 'default queue' for users that don't have an Unsplash account.  The default queue points to a user that is set as the 'default' user.  To select a user, run ```rake default:change`` and provide a username when prompted.  The username provided should be for a user controlled by the site administrator. 
@@ -48,7 +49,7 @@ The ```UNSPLASH_REDIRECT_URI``` should be set to one of three different values d
 * Production Server - For the production server, the ```UNSPLASH_REDIRECT_URI``` should be set to the production server, i.e. ```http://<your-production-server>/unsplash/callback```.
 
 ## Testing
-Photo Vistas has a test suite built with ```rspec```.  The test suite can be run with the commands:
+Photo Vistas has a test suite built with [rspec](http://rspec.info).  The test suite can be run with the commands:
 
 ```
 	$ rspec				 # OR
