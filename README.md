@@ -2,7 +2,7 @@
 
 <img src="readme/pv-homepage.png" alt="Drawing" style="width: 75%;"/>
 
-[Photo Vistas](https://photovistas.com) uses the [Unsplash API](https://unsplash.com/developers) to provide your favorite Unsplash photos in new browser tabs without a plugin.  Photo Vistas allows the user to create their own custom photo queue and associated homepage bookmark.  Photos are rotated daily at midnight.  
+[Photo Vistas](https://photovistas.com) uses the [Unsplash API](https://unsplash.com/developers) to provide your favorite Unsplash photos in new browser tabs.  Photo Vistas allows the user to create their own custom photo queue and associated homepage bookmark.  Photos are rotated daily at midnight.  
 
 Photo Vistas is built with Ruby and the [Sinatra](http://www.sinatrarb.com) web development framework.  
 
