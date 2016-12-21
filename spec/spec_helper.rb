@@ -1,12 +1,17 @@
 ENV['RACK_ENV'] = "test"
 
+require "simplecov"
+SimpleCov.start do
+  add_filter "/spec/"
+  add_filter "/config/"
+  add_filter "/db/"
+end
+
 require_relative "../config/environment"
 require 'rack/test'
 require 'capybara/rspec'
 require 'vcr'
-require "simplecov"
 
-SimpleCov.start
 
 if ActiveRecord::Migrator.needs_migration?
   raise 'Migrations are pending. Run `rake db:migrate SINATRA_ENV=test` to resolve the issue.'
