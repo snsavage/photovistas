@@ -75,7 +75,11 @@ The first time the test suite runs, ```VCR``` will record new cassettes specific
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at [https://github.com/snsavage/photovistas/issues](https://github.com/snsavage/photovistas/issues). Please read the [CONTRIBUTING GUIDE](./CONTRIBUTING.md).  This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Code of Conduct](./CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at
+[https://github.com/snsavage/photovistas/issues](https://github.com/snsavage/photovistas/issues).
+Please read the [Contributing Guide](./CONTRIBUTING.md).  This project is
+intended to be a safe, welcoming space for collaboration, and contributors are
+expected to adhere to the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ## Questions?
 Please contact [scott@photovistas.com](mailto: scott@photovistas.com)
