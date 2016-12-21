@@ -4,6 +4,9 @@ require_relative "../config/environment"
 require 'rack/test'
 require 'capybara/rspec'
 require 'vcr'
+require "simplecov"
+
+SimpleCov.start
 
 if ActiveRecord::Migrator.needs_migration?
   raise 'Migrations are pending. Run `rake db:migrate SINATRA_ENV=test` to resolve the issue.'
@@ -47,6 +50,7 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
   c.configure_rspec_metadata!
+  c.ignore_hosts 'codeclimate.com'
 end
 
 def app
