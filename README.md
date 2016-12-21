@@ -6,7 +6,11 @@
 
 Photo Vistas is built with Ruby and the [Sinatra](http://www.sinatrarb.com) web development framework.  
 
-*Photo Vistas was created as a project for the [Flatiron School's Online Web Developer Program](https://flatironschool.com/programs/online-web-developer-career-course/).  Additional information about the project can be found [here](https://www.snsavage.com).*
+*Photo Vistas was created as a project for the [Flatiron School's Online Web
+Developer
+Program](https://flatironschool.com/programs/online-web-developer-career-course/).
+Additional information about the project can be found
+[here](https://www.snsavage.com/blog/2016/creating_photo_vistas_with_sinatra.html).*
 
 ## Setup
 Local development for Photo Vistas requires a few setup procedures.  Please submit a [bug report](https://github.com/snsavage/photovistas/issues) if these steps don't work for you.
