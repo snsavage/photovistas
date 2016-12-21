@@ -12,4 +12,6 @@
 /spec/*.json
 /public/assets
 /log/
+/misc/
+
 
