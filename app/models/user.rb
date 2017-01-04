@@ -34,15 +34,15 @@ class User < ActiveRecord::Base
 
   def current_photo
     Time.use_zone(time_zone) do
-      tz_date = Time.current.to_date
+      timezone_date = Time.current.to_date
 
-      queue = current_queue(tz_date).or(null_queue).limit(1).first
+      queue = current_queue(timezone_date).or(null_queue).limit(1).first
 
       if !queue
         queue = oldest_queue.first
       end
 
-      queue.update(last_viewed: tz_date)
+      queue.update(last_viewed: timezone_date)
       return queue.photo
     end
   end

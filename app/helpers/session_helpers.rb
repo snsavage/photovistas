@@ -1,6 +1,6 @@
 module SessionHelpers
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+    @current_user ||= User.find_by_id(session[:user_id]) unless session[:user_id] == nil
   end
 
   def logged_in?

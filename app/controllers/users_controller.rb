@@ -1,6 +1,7 @@
 require_relative 'application_controller'
 
 class UsersController < ApplicationController
+
   get '/bookmark/default' do
     redirect to "/" if !logged_in?
 
@@ -35,9 +36,9 @@ class UsersController < ApplicationController
       %w(username email password password_confirmation)
     )
 
-    user = User.create(credentials)
+    user = User.new(credentials)
 
-    if user.valid?
+    if user.save
       session[:user_id] = user.id
       redirect to "/unsplash/auth" if params[:unsplash]
       redirect to "/settings/#{user.username}"
