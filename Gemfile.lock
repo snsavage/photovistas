@@ -178,7 +178,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
-    unsplash (1.5.1)
+    unsplash (1.5.2)
       httparty (~> 0.14.0)
       oauth2 (~> 1)
     vcr (3.0.3)
@@ -228,7 +228,7 @@ DEPENDENCIES
   sprockets-helpers
   timecop
   uglifier
-  unsplash (~> 1.4)
+  unsplash (~> 1.5.2)
   vcr
   webmock
 
@@ -236,4 +236,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.7
+   1.15.4
