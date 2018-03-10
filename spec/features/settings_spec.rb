@@ -48,12 +48,12 @@ feature 'user settings', :feature do
       likes = unsplash_user.total_likes
       username = unsplash_user.username
 
-      expect(page.body).to include("Total: #{likes}")
-      expect(page.body).to include(links[0][:id])
-      expect(page.body).to include(links[1][:id])
-      expect(page.body).to include(links[0][:thumb])
-      expect(page.body).to include(links[1][:thumb])
-      expect(page.body).to include("https://unsplash.com/@#{username}/likes")
+      within(".unsplash-liked-photos") do
+        expect(page.body).to include("Total: #{likes}")
+        expect(page.body).to include(links[0][:thumb])
+        expect(page.body).to include(links[1][:thumb])
+        expect(page.body).to include("https://unsplash.com/@#{username}/likes")
+      end
     end
 
     scenario 'shows collections', vcr: vcr_options do

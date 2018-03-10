@@ -12,8 +12,8 @@ gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
 gem 'rake'
 gem "rack-flash3", :require => "rack-flash"
 # gem "sinatra-flash"
-# gem 'unsplash', '~>1.4'
-gem 'unsplash', git: "https://github.com/snsavage/unsplash_rb.git", branch: "savage"
+gem 'unsplash', '~>1.5.2'
+# gem 'unsplash', git: "https://github.com/snsavage/unsplash_rb.git", branch: "savage"
 gem 'activesupport', :require => 'active_support/core_ext/time'
 gem 'rack-ssl'
 

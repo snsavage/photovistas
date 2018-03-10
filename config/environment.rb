@@ -14,6 +14,7 @@ Unsplash.configure do |config|
   config.application_id = ENV['UNSPLASH_ID']
   config.application_secret = ENV['UNSPLASH_SECRET']
   config.application_redirect_uri = ENV['UNSPLASH_REDIRECT_URI']
+  config.utm_source = ENV['APP_NAME']
 end
 
 
